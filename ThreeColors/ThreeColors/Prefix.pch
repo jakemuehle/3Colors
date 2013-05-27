@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'ThreeColors' target in the 'ThreeColors' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#endif
