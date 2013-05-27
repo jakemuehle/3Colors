@@ -35,8 +35,20 @@ public:
 
 	float getHorizontalSpacing() const;
 	float getVerticalSpacing() const;
-
-	bool makeSelection( ColorNode nodes[], BankPossibleMatches & possible_matches );
+    
+    // Call to select the specified nodes.
+    // Returns if the nodes is a valid incomplete selection.
+	bool select( ColorNode selected_nodes[], unsigned int length );
+    
+    void deselectAll();
+    
+    // Unselects to the specified nodes.
+    // Returns if the nodes is a valid incomplete selection.
+    bool unselect( ColorNode remaining_selected_nodes[], unsigned int length);
+    
+    // Make the selection.
+    // Returns if the nodes are valid.
+	bool makeSelection( ColorNode selected_nodes[], unsigned int length );
 
 private:
 
@@ -56,6 +68,7 @@ private:
 		m_max_sequence_length;
 
 	unsigned int setRandomSequence( ColorNode* sequence );
+    void removeSequence( ColorNode** sequence_ptr, unsigned int* length_ptr );
 
 	ColorBank();
 	ColorBank(const ColorBank &);

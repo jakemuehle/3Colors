@@ -6,7 +6,6 @@ namespace three_color
 {
 
 typedef unsigned char PaletteIndex;
-typedef unsigned char BankPossibleMatches;
 
 } // three_color
 

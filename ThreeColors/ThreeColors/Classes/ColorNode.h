@@ -28,6 +28,11 @@ public:
 	cocos2d::CCSprite* getSprite() { return m_sprite; }
 	
 	void setPosition( cocos2d::CCPoint& position );
+    
+    void setPositionX( float x );
+    void setPositionY( float y );
+    
+    const cocos2d::CCPoint & getPosition();
 
 	// Sets the parent. The zOrder specifies the drawn depth or layer.
 	void setParent( cocos2d::CCNode* parent, int z_order );

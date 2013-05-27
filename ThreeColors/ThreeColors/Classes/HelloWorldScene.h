@@ -25,6 +25,10 @@ public:
     // preprocessor macro for "static create()" constructor ( node() deprecated )
     CREATE_FUNC(HelloWorld);
     
+    bool ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent);
+    
+    void registerWithTouchDispatcher();
+    
 private:
     three_color::ColorBank* bank;
 };

@@ -39,7 +39,7 @@ void setColorNodes(
 bool startsEquivalent(
 	ColorNode i_nodes[], unsigned int i_node_length,
 	PaletteIndex i_sequence[], unsigned int i_sequence_length,
-	bool * o_does_match_forward = NULL );
+	bool * o_does_match_forward = NULL, bool * o_does_match_backward = NULL );
 
 // Checks if the nodes' colors is the same as the sequence going forwards or backwards.
 bool isEquivalent(
@@ -50,7 +50,7 @@ bool isEquivalent(
 bool startsEquivalent(
 	ColorNode i_nodes_a[], unsigned int i_node_length_a,
 	ColorNode i_nodes_b[], unsigned int i_node_length_b,
-	bool * o_does_match_forward = NULL );
+	bool * o_does_match_forward = NULL, bool * o_does_match_backward = NULL );
 
 // Checks if the nodes' colors is the same as the sequence going forwards or backwards.
 bool isEquivalent(

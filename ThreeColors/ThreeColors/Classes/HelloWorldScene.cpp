@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "ColorBank.h"
+#include "ColorNode.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -85,7 +86,51 @@ bool HelloWorld::init()
     bank->init();
     this->addChild( bank, 1 );
     
+    m_bTouchEnabled = true;
+    
     return true;
+}
+
+bool HelloWorld::ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent)
+{
+    /* Test select
+     
+    three_color::ColorNode nodes[3];
+    
+    nodes[0].init();
+    nodes[1].init();
+    nodes[2].init();
+    
+    nodes[0].setColor(2);
+    nodes[1].setColor(1);
+    nodes[2].setColor(1);
+    
+    bank->makeSelection(nodes, 3);
+    */
+    
+    static bool should_select = true;
+    
+    if( should_select )
+    {
+        three_color::ColorNode node;
+        node.init();
+        node.setColor(1);
+        
+        bank->select(&node, 1);
+    }
+    else
+    {
+        bank->deselectAll();
+    }
+    
+    should_select = ! should_select;
+    
+    return true;
+}
+
+void HelloWorld::registerWithTouchDispatcher()
+{
+    cocos2d::CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,0,true);
 }
 
 void HelloWorld::menuCloseCallback(CCObject* pSender)
