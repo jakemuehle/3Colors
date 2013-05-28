@@ -45,6 +45,7 @@ namespace three_color
         
         // Call to select the specified nodes.
         // Returns if the nodes is a valid incomplete selection.
+        bool select( PaletteIndex selected_colors[], unsigned int length );
         bool select( ColorNode selected_nodes[], unsigned int length );
         
         // Deselects all nodes.
@@ -52,10 +53,12 @@ namespace three_color
         
         // Unselects to the specified nodes.
         // Returns if the nodes is a valid incomplete selection.
+        bool unselect( PaletteIndex remaining_selected_colors[], unsigned int length);
         bool unselect( ColorNode remaining_selected_nodes[], unsigned int length);
         
         // Make the selection.
         // Returns if the nodes are valid.
+        bool makeSelection( PaletteIndex selected_colors[], unsigned int length );
         bool makeSelection( ColorNode selected_nodes[], unsigned int length );
         
     private:

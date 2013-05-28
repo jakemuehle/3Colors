@@ -95,6 +95,38 @@ namespace three_color
         return m_bounds.size.height / divisions;
     }
     
+    bool ColorBank::select( PaletteIndex selected_colors[], unsigned int length )
+    {
+        bool found_selection = false;
+        
+        unsigned int* length_iter = m_sequences_length;
+        for( ColorNode** sequence_iter = m_sequences; sequence_iter != m_sequences + m_number_of_sequences; ++sequence_iter, ++length_iter )
+        {
+            bool matches_forward = false, matches_backward = false;
+            
+            found_selection |= startsEquivalent( *sequence_iter, *length_iter, selected_colors, length, &matches_forward, &matches_backward);
+            
+            if( matches_forward )
+            {
+                for(ColorNode* node_iter = *sequence_iter; node_iter != *sequence_iter + length; ++node_iter)
+                {
+                    node_iter->select();
+                }
+            }
+            
+            if( matches_backward )
+            {
+                for(ColorNode* node_iter = *sequence_iter + *length_iter - length; node_iter != *sequence_iter + *length_iter; ++node_iter)
+                {
+                    node_iter->select();
+                }
+                    
+            }
+        }
+        
+        return found_selection;
+    }
+    
     bool ColorBank::select( ColorNode selected_nodes[], unsigned int length )
     {
         bool found_selection = false;
@@ -120,7 +152,7 @@ namespace three_color
                 {
                     node_iter->select();
                 }
-                    
+                
             }
         }
         
@@ -138,10 +170,32 @@ namespace three_color
         }
     }
     
+    bool ColorBank::unselect( PaletteIndex remaining_selected_colors[], unsigned int length)
+    {
+        deselectAll();
+        return select(remaining_selected_colors, length);
+    }
+    
     bool ColorBank::unselect( ColorNode remaining_selected_nodes[], unsigned int length)
     {
         deselectAll();
         return select(remaining_selected_nodes, length);
+    }
+    
+    bool ColorBank::makeSelection( PaletteIndex selected_colors[], unsigned int length )
+    {
+        ColorNode** sequence_iter = m_sequences;
+        for( unsigned int* length_iter = m_sequences_length; sequence_iter != m_sequences + m_number_of_sequences; ++sequence_iter, ++length_iter )
+        {
+            if( isEquivalent( *sequence_iter, *length_iter, selected_colors, length ))
+            {
+                removeSequence(sequence_iter, length_iter);
+                // Sets the last sequence random
+                m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
+                return true;
+            }
+        }
+        return false;
     }
     
     bool ColorBank::makeSelection( ColorNode selected_nodes[], unsigned int length )

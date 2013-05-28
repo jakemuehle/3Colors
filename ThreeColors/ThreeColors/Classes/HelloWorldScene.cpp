@@ -3,6 +3,10 @@
 #include "ColorBank.h"
 #include "ColorNode.h"
 
+// Test macros
+#define TEST_MAKE_SELECTION
+//#define TEST_SELECT
+
 using namespace cocos2d;
 using namespace CocosDenshion;
 
@@ -84,6 +88,7 @@ bool HelloWorld::init()
     
     bank = new three_color::ColorBank(cocos2d::CCRect(100,100,200,200),4,3,3,3);
     bank->init();
+    bank->boundingBox()
     this->addChild( bank, 1 );
     
     m_bTouchEnabled = true;
@@ -93,30 +98,24 @@ bool HelloWorld::init()
 
 bool HelloWorld::ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent)
 {
-    /* Test select
-     
-    three_color::ColorNode nodes[3];
     
-    nodes[0].init();
-    nodes[1].init();
-    nodes[2].init();
+#ifdef TEST_MAKE_SELECTION
     
-    nodes[0].setColor(2);
-    nodes[1].setColor(1);
-    nodes[2].setColor(1);
+    three_color::PaletteIndex colors[] = { 2, 1, 1 };
     
-    bank->makeSelection(nodes, 3);
-    */
+    bank->makeSelection(colors, 3);
+    
+#endif // TEST_SELECT
+    
+#ifdef TEST_SELECT
     
     static bool should_select = true;
     
     if( should_select )
     {
-        three_color::ColorNode node;
-        node.init();
-        node.setColor(1);
+        three_color::PaletteIndex colors[] = { 1, 0 };
         
-        bank->select(&node, 1);
+        bank->select(colors, 2);
     }
     else
     {
@@ -124,6 +123,8 @@ bool HelloWorld::ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent
     }
     
     should_select = ! should_select;
+    
+#endif // TEST_SELECT
     
     return true;
 }
