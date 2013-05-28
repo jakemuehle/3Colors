@@ -1,9 +1,13 @@
+// Copywright May 2013
+// Author: Derek Higgs
+// Purpose: Contains information common between all colored nodes.  Singleton.
+
 #ifndef __3COLOR__COLOR_NODE_FRAMES_H
 #define __3COLOR__COLOR_NODE_FRAMES_H
 
 namespace cocos2d
 {
-class CCSpriteFrame;
+    class CCSpriteFrame;
 } // cocos2d
 
 namespace three_color
@@ -11,10 +15,14 @@ namespace three_color
 	class ColorNodeFrames
 	{
 	public:
+        // Get the singleton.
 		static ColorNodeFrames* get();
+        // Manual call to start up.
 		static bool init();
+        // Shutdown the singleton.
 		static void shutdown();
 
+        // The frames to show.
 		cocos2d::CCSpriteFrame
 			* const deselected_frame,
 			* const selected_frame,
