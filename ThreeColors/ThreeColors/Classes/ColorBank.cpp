@@ -113,8 +113,7 @@ namespace three_color
                     node_iter->select();
                 }
             }
-            
-            if( matches_backward )
+            else if( matches_backward )
             {
                 for(ColorNode* node_iter = *sequence_iter + *length_iter - length; node_iter != *sequence_iter + *length_iter; ++node_iter)
                 {

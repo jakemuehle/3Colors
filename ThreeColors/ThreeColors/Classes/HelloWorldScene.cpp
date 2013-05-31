@@ -1,14 +1,12 @@
 #include "HelloWorldScene.h"
-#include "SimpleAudioEngine.h"
 #include "ColorBank.h"
 #include "ColorNode.h"
 
 // Test macros
-#define TEST_MAKE_SELECTION
-//#define TEST_SELECT
+//#define TEST_MAKE_SELECTION
+#define TEST_SELECT
 
 using namespace cocos2d;
-using namespace CocosDenshion;
 
 HelloWorld::~HelloWorld()
 {
@@ -88,7 +86,6 @@ bool HelloWorld::init()
     
     bank = new three_color::ColorBank(cocos2d::CCRect(100,100,200,200),4,3,3,3);
     bank->init();
-    bank->boundingBox()
     this->addChild( bank, 1 );
     
     m_bTouchEnabled = true;
@@ -115,7 +112,7 @@ bool HelloWorld::ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent
     {
         three_color::PaletteIndex colors[] = { 1, 0 };
         
-        bank->select(colors, 2);
+        bank->select(colors, 1);
     }
     else
     {
