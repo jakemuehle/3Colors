@@ -1,1 +1,0 @@
-You are successfully linked to the git repository!

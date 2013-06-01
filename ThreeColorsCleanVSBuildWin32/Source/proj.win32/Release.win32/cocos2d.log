@@ -1,0 +1,150 @@
+﻿Build started 5/18/2013 1:41:11 PM.
+     1>Project "C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\cocos2d.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release.win32\libcocos2d.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\.." /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\win32" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\iconv" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\zlib" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\libpng" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\libjpeg" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\libtiff" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\libwebp" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\pthread" /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\OGLES" /I..\include /I"C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\kazmath\include" /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D COCOS2DXWIN32_EXPORTS /D GL_GLEXT_PROTOTYPES /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release.win32\\" /Fd"Release.win32\vc100.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\draw_nodes\main.cpp
+         main.cpp
+         All outputs are up-to-date.
+       PreLinkEvent:
+         if not exist "C:\Projects\Source\Cocos2d-x\Release.win32\" mkdir "C:\Projects\Source\Cocos2d-x\Release.win32\"
+         xcopy /Y /Q "C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\..\platform\third_party\win32\libraries\*.*" "C:\Projects\Source\Cocos2d-x\Release.win32\"
+         
+         :VCEnd
+         15 File(s) copied
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Projects\Source\Cocos2d-x\Release.win32\libcocos2d.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Projects\Source\Cocos2d-x\Release.win32\\" opengl32.lib glew32.lib libzlib.lib libpng.lib libjpeg.lib libtiff.lib libwebp.lib libiconv.lib pthreadVCE2.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release.win32\libcocos2d.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Projects\Source\Cocos2d-x\Release.win32\libcocos2d.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Projects\Source\Cocos2d-x\Release.win32\libcocos2d.lib" /MACHINE:X86 /DLL Release.win32\CCAtlasNode.obj
+         Release.win32\CCNode.obj
+         Release.win32\CCAffineTransform.obj
+         Release.win32\CCArray.obj
+         Release.win32\CCAutoreleasePool.obj
+         Release.win32\CCDictionary.obj
+         Release.win32\CCGeometry.obj
+         Release.win32\CCNS.obj
+         Release.win32\CCObject.obj
+         Release.win32\CCSet.obj
+         Release.win32\CCString.obj
+         Release.win32\CCZone.obj
+         Release.win32\CCDrawingPrimitives.obj
+         Release.win32\main.obj
+         Release.win32\CCGrabber.obj
+         Release.win32\CCGrid.obj
+         Release.win32\CCAction.obj
+         Release.win32\CCActionCamera.obj
+         Release.win32\CCActionCatmullRom.obj
+         Release.win32\CCActionEase.obj
+         Release.win32\CCActionGrid.obj
+         Release.win32\CCActionGrid3D.obj
+         Release.win32\CCActionInstant.obj
+         Release.win32\CCActionInterval.obj
+         Release.win32\CCActionManager.obj
+         Release.win32\CCActionPageTurn3D.obj
+         Release.win32\CCActionProgressTimer.obj
+         Release.win32\CCActionTiledGrid.obj
+         Release.win32\CCActionTween.obj
+         Release.win32\CCLabelAtlas.obj
+         Release.win32\CCLabelBMFont.obj
+         Release.win32\CCLabelTTF.obj
+         Release.win32\CCLayer.obj
+         Release.win32\CCScene.obj
+         Release.win32\CCTransition.obj
+         Release.win32\CCTransitionPageTurn.obj
+         Release.win32\CCTransitionProgress.obj
+         Release.win32\CCMenu.obj
+         Release.win32\CCMenuItem.obj
+         Release.win32\CCClippingNode.obj
+         Release.win32\CCMotionStreak.obj
+         Release.win32\CCProgressTimer.obj
+         Release.win32\CCRenderTexture.obj
+         Release.win32\CCParticleBatchNode.obj
+         Release.win32\CCParticleExamples.obj
+         Release.win32\CCParticleSystem.obj
+         Release.win32\CCParticleSystemQuad.obj
+         Release.win32\CCEGLViewProtocol.obj
+         Release.win32\CCFileUtils.obj
+         Release.win32\CCImageCommonWebp.obj
+         Release.win32\CCSAXParser.obj
+         Release.win32\CCThread.obj
+         Release.win32\platform.obj
+         Release.win32\CCAccelerometer.obj
+         Release.win32\CCApplication.obj
+         Release.win32\CCCommon.obj
+         Release.win32\CCDevice.obj
+         Release.win32\CCEGLView.obj
+         Release.win32\CCFileUtilsWin32.obj
+         Release.win32\CCImage.obj
+         Release.win32\CCStdC.obj
+         Release.win32\CCGLProgram.obj
+         Release.win32\ccGLStateCache.obj
+         Release.win32\CCShaderCache.obj
+         Release.win32\ccShaders.obj
+         Release.win32\CCAnimation.obj
+         Release.win32\CCAnimationCache.obj
+         Release.win32\CCSprite.obj
+         Release.win32\CCSpriteBatchNode.obj
+         Release.win32\CCSpriteFrame.obj
+         Release.win32\CCSpriteFrameCache.obj
+         Release.win32\base64.obj
+         Release.win32\CCNotificationCenter.obj
+         Release.win32\CCPointExtension.obj
+         Release.win32\CCProfiling.obj
+         Release.win32\ccUTF8.obj
+         Release.win32\ccUtils.obj
+         Release.win32\CCVertex.obj
+         Release.win32\tinyxml2.obj
+         Release.win32\TransformUtils.obj
+         Release.win32\ccCArray.obj
+         Release.win32\TGAlib.obj
+         Release.win32\CCUserDefault.obj
+         Release.win32\ioapi.obj
+         Release.win32\unzip.obj
+         Release.win32\ZipUtils.obj
+         Release.win32\CCTexture2D.obj
+         Release.win32\CCTextureAtlas.obj
+         Release.win32\CCTextureCache.obj
+         Release.win32\CCTexturePVR.obj
+         Release.win32\CCParallaxNode.obj
+         Release.win32\CCTileMapAtlas.obj
+         Release.win32\CCTMXLayer.obj
+         Release.win32\CCTMXObjectGroup.obj
+         Release.win32\CCTMXTiledMap.obj
+         Release.win32\CCTMXXMLParser.obj
+         Release.win32\CCTouch.obj
+         Release.win32\CCTouchDispatcher.obj
+         Release.win32\CCTouchHandler.obj
+         Release.win32\CCKeypadDelegate.obj
+         Release.win32\CCKeypadDispatcher.obj
+         Release.win32\CCIMEDispatcher.obj
+         Release.win32\CCTextFieldTTF.obj
+         Release.win32\CCScriptSupport.obj
+         Release.win32\aabb.obj
+         Release.win32\mat3.obj
+         Release.win32\mat4.obj
+         Release.win32\neon_matrix_impl.obj
+         Release.win32\plane.obj
+         Release.win32\quaternion.obj
+         Release.win32\ray2.obj
+         Release.win32\utility.obj
+         Release.win32\vec2.obj
+         Release.win32\vec3.obj
+         Release.win32\vec4.obj
+         Release.win32\mat4stack.obj
+         Release.win32\matrix.obj
+         Release.win32\CCCamera.obj
+         Release.win32\CCConfiguration.obj
+         Release.win32\CCDirector.obj
+         Release.win32\CCScheduler.obj
+         Release.win32\cocos2d.obj
+            Creating library C:\Projects\Source\Cocos2d-x\Release.win32\libcocos2d.lib and object C:\Projects\Source\Cocos2d-x\Release.win32\libcocos2d.exp
+     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         cocos2d.vcxproj -> C:\Projects\Source\Cocos2d-x\Release.win32\libcocos2d.dll
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Projects\Source\Cocos2d-x\Release.win32\libcocos2d.dll;#2" /manifest Release.win32\libcocos2d.dll.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release.win32\libcocos2d.unsuccessfulbuild".
+         Touching "Release.win32\libcocos2d.lastbuildstate".
+     1>Done Building Project "C:\Projects\Source\Cocos2d-x\cocos2dx\proj.win32\cocos2d.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:15.80
