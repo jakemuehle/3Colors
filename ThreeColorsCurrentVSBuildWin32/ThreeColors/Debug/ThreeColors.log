@@ -1,0 +1,199 @@
+﻿Build started 6/6/2013 7:27:12 AM.
+     1>Project "C:\Projects\Workspace\ThreeColors\ThreeColors\ThreeColors.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\ThreeColors.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\Source\CocosDenshion\win32 /I..\Source\CocosDenshion\include /I..\Source /I..\Source\include /I..\Source\kazmath\include /I..\Source\platform\win32 /I..\Source\platform\third_party\win32\OGLES /I..\Classes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Classes\ColorGrid.cpp
+         ColorGrid.cpp
+     1>c:\projects\workspace\threecolors\source\sprite_nodes\ccspriteframe.h(151): warning C4251: 'cocos2d::CCSpriteFrame::m_strTextureFilename' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCSpriteFrame'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\cocoa\ccstring.h(118): warning C4251: 'cocos2d::CCString::m_sString' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCString'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\actions\ccactiontween.h(74): warning C4251: 'cocos2d::CCActionTween::m_strKey' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCActionTween'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\label_nodes\cclabelttf.h(125): warning C4251: 'cocos2d::CCLabelTTF::m_string' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCLabelTTF'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\label_nodes\cclabelatlas.h(92): warning C4251: 'cocos2d::CCLabelAtlas::m_sString' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCLabelAtlas'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\label_nodes\cclabelbmfont.h(120): warning C4251: 'cocos2d::CCBMFontConfiguration::m_sAtlasName' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCBMFontConfiguration'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\label_nodes\cclabelbmfont.h(260): warning C4251: 'cocos2d::CCLabelBMFont::m_sFntFile' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCLabelBMFont'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\label_nodes\cclabelbmfont.h(264): warning C4251: 'cocos2d::CCLabelBMFont::m_sInitialStringUTF8' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCLabelBMFont'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\menu_nodes\ccmenuitem.h(217): warning C4251: 'cocos2d::CCMenuItemFont::m_strFontName' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCMenuItemFont'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\particle_nodes\ccparticlesystem.h(178): warning C4251: 'cocos2d::CCParticleSystem::m_sPlistFile' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCParticleSystem'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\platform\ccfileutils.h(368): warning C4251: 'cocos2d::CCFileUtils::m_searchResolutionsOrderArray' : class 'std::vector<_Ty>' needs to have dll-interface to be used by clients of class 'cocos2d::CCFileUtils'
+                 with
+                 [
+                     _Ty=std::string
+                 ]
+     1>c:\projects\workspace\threecolors\source\platform\ccfileutils.h(374): warning C4251: 'cocos2d::CCFileUtils::m_searchPathArray' : class 'std::vector<_Ty>' needs to have dll-interface to be used by clients of class 'cocos2d::CCFileUtils'
+                 with
+                 [
+                     _Ty=std::string
+                 ]
+     1>c:\projects\workspace\threecolors\source\platform\ccfileutils.h(383): warning C4251: 'cocos2d::CCFileUtils::m_strDefaultResRootPath' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCFileUtils'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\platform\ccfileutils.h(389): warning C4251: 'cocos2d::CCFileUtils::m_fullPathCache' : class 'std::map<_Kty,_Ty>' needs to have dll-interface to be used by clients of class 'cocos2d::CCFileUtils'
+                 with
+                 [
+                     _Kty=std::string,
+                     _Ty=std::string
+                 ]
+     1>c:\projects\workspace\threecolors\source\platform\win32\ccapplication.h(62): warning C4251: 'cocos2d::CCApplication::m_resourceRootPath' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCApplication'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\platform\win32\ccapplication.h(63): warning C4251: 'cocos2d::CCApplication::m_startupScriptFilename' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCApplication'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\support\user_default\ccuserdefault.h(121): warning C4251: 'cocos2d::CCUserDefault::m_sFilePath' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCUserDefault'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\tilemap_parallax_nodes\cctmxobjectgroup.h(69): warning C4251: 'cocos2d::CCTMXObjectGroup::m_sGroupName' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCTMXObjectGroup'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\tilemap_parallax_nodes\cctmxxmlparser.h(93): warning C4251: 'cocos2d::CCTMXLayerInfo::m_sName' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCTMXLayerInfo'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\tilemap_parallax_nodes\cctmxxmlparser.h(120): warning C4251: 'cocos2d::CCTMXTilesetInfo::m_sName' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCTMXTilesetInfo'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\tilemap_parallax_nodes\cctmxxmlparser.h(126): warning C4251: 'cocos2d::CCTMXTilesetInfo::m_sSourceImage' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCTMXTilesetInfo'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\tilemap_parallax_nodes\cctmxxmlparser.h(205): warning C4251: 'cocos2d::CCTMXMapInfo::m_sTMXFileName' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCTMXMapInfo'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\tilemap_parallax_nodes\cctmxxmlparser.h(207): warning C4251: 'cocos2d::CCTMXMapInfo::m_sResources' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCTMXMapInfo'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\tilemap_parallax_nodes\cctmxxmlparser.h(209): warning C4251: 'cocos2d::CCTMXMapInfo::m_sCurrentString' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCTMXMapInfo'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\projects\workspace\threecolors\source\tilemap_parallax_nodes\cctmxlayer.h(183): warning C4251: 'cocos2d::CCTMXLayer::m_sLayerName' : class 'std::basic_string<_Elem,_Traits,_Ax>' needs to have dll-interface to be used by clients of class 'cocos2d::CCTMXLayer'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Projects\Workspace\ThreeColors\Debug\ThreeColors.exe" /NOLOGO opengl32.lib glew32.lib libcocos2d.lib libCocosDenshion.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\ThreeColors.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Projects\Workspace\ThreeColors\Debug\ThreeColors.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Projects\Workspace\ThreeColors\Debug\ThreeColors.lib" /MACHINE:X86 Debug\AppDelegate.obj
+         Debug\ColorBank.obj
+         Debug\ColorNode.obj
+         Debug\ColorNodeFrames.obj
+         Debug\ColorSequence.obj
+         Debug\ColorGrid.obj
+         Debug\HelloWorldScene.obj
+         Debug\main.obj
+         Debug\my_math.obj
+         LINK : C:\Projects\Workspace\ThreeColors\Debug\ThreeColors.exe not found or not built by the last incremental link; performing full link
+         ThreeColors.vcxproj -> C:\Projects\Workspace\ThreeColors\Debug\ThreeColors.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Projects\Workspace\ThreeColors\Debug\ThreeColors.exe;#1" /manifest Debug\ThreeColors.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\ThreeColors.unsuccessfulbuild".
+         Touching "Debug\ThreeColors.lastbuildstate".
+     1>Done Building Project "C:\Projects\Workspace\ThreeColors\ThreeColors\ThreeColors.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.17

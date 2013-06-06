@@ -1,0 +1,21 @@
+﻿Build started 5/18/2013 1:41:27 PM.
+     1>Project "C:\Projects\Source\Cocos2d-x\CocosDenshion\proj.win32\CocosDenshion.vcxproj" on node 3 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release.win32\libCocosDenshion.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Projects\Source\Cocos2d-x\Release.win32\libCocosDenshion.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Projects\Source\Cocos2d-x\Release.win32\\" winmm.lib libcocos2d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release.win32\libCocosDenshion.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Projects\Source\Cocos2d-x\Release.win32\libCocosDenshion.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Projects\Source\Cocos2d-x\Release.win32\libCocosDenshion.lib" /MACHINE:X86 /DLL Release.win32\MciPlayer.obj
+         Release.win32\SimpleAudioEngine.obj
+            Creating library C:\Projects\Source\Cocos2d-x\Release.win32\libCocosDenshion.lib and object C:\Projects\Source\Cocos2d-x\Release.win32\libCocosDenshion.exp
+         CocosDenshion.vcxproj -> C:\Projects\Source\Cocos2d-x\Release.win32\libCocosDenshion.dll
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Projects\Source\Cocos2d-x\Release.win32\libCocosDenshion.dll;#2" /manifest Release.win32\libCocosDenshion.dll.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release.win32\libCocosDenshion.unsuccessfulbuild".
+         Touching "Release.win32\libCocosDenshion.lastbuildstate".
+     1>Done Building Project "C:\Projects\Source\Cocos2d-x\CocosDenshion\proj.win32\CocosDenshion.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.50
