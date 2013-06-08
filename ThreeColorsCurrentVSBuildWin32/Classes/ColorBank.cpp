@@ -6,12 +6,15 @@
 #include "ColorNode.h"
 #include "ColorSequence.h"
 
-#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN) || defined(USE_WILD_CARDS_IN_BANK)
 #include "my_math.h"
 #endif
 
 namespace three_color
 {
+#if defined(USE_WILD_CARDS_IN_BANK)
+    const unsigned int k_turn_to_send_wild_card = 5;
+#endif
     
     ColorBank::~ColorBank()
     {
@@ -119,7 +122,12 @@ namespace three_color
         {
             bool matches_forward = false, matches_backward = false;
             
-            found_selection |= startsEquivalent( *sequence_iter, *length_iter, selected_colors, length, &matches_forward, &matches_backward);
+            found_selection |= startsEquivalent( *sequence_iter, *length_iter, selected_colors, length,
+#if defined(USE_WILD_CARDS_IN_BANK)
+                                                true, NULL,
+#endif
+                                                &matches_forward, &matches_backward
+                                                );
             
             if( matches_forward )
             {
@@ -153,7 +161,12 @@ namespace three_color
         {
             bool matches_forward = false, matches_backward = false;
             
-            found_selection |= startsEquivalent( *sequence_iter, *length_iter, selected_nodes, length, &matches_forward, &matches_backward);
+            found_selection |= startsEquivalent( *sequence_iter, *length_iter, selected_nodes, length,
+#if defined(USE_WILD_CARDS_IN_BANK)
+                                                true, NULL,
+#endif
+                                                &matches_forward, &matches_backward
+                                                );
             
             if( matches_forward )
             {
@@ -202,10 +215,31 @@ namespace three_color
     bool ColorBank::makeSelection( PaletteIndex selected_colors[], unsigned int length )
     {
         ColorNode** sequence_iter = m_sequences;
+#if defined(USE_WILD_CARDS_IN_BANK)
+        ColorNode** sequence_matching_with_wild_card_ptr = NULL;
+        unsigned int* sequence_matching_with_wild_card_length_ptr = NULL;
+        bool has_wild_card_matching(false);
+#endif
         for( unsigned int* length_iter = m_sequences_length; sequence_iter != m_sequences + m_number_of_sequences; ++sequence_iter, ++length_iter )
         {
-            if( isEquivalent( *sequence_iter, *length_iter, selected_colors, length ))
+            if( isEquivalent( *sequence_iter, *length_iter, selected_colors, length
+#if defined(USE_WILD_CARDS_IN_BANK)
+                             , true, &has_wild_card_matching
+#endif
+                             ))
             {
+#if defined(USE_WILD_CARDS_IN_BANK)
+                if( has_wild_card_matching )
+                {
+                    sequence_matching_with_wild_card_ptr = sequence_iter;
+                    sequence_matching_with_wild_card_length_ptr = length_iter;
+                    has_wild_card_matching = false;
+                }
+                else
+                {
+                    ++m_last_sent_wild_card;
+                }
+#endif
                 removeSequence(sequence_iter, length_iter);
                 // Sets the last sequence random
                 m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
@@ -216,16 +250,46 @@ namespace three_color
                 return true;
             }
         }
+#if defined(USE_WILD_CARDS_IN_BANK)
+        if( sequence_matching_with_wild_card_ptr )
+        {
+            ++m_last_sent_wild_card;
+            removeSequence(sequence_matching_with_wild_card_ptr, sequence_matching_with_wild_card_length_ptr);
+            // Sets the last sequence random
+            m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
+        }
+#endif
         return false;
     }
     
     bool ColorBank::makeSelection( ColorNode selected_nodes[], unsigned int length )
     {
         ColorNode** sequence_iter = m_sequences;
+#if defined(USE_WILD_CARDS_IN_BANK)
+        ColorNode** sequence_matching_with_wild_card_ptr = NULL;
+        unsigned int* sequence_matching_with_wild_card_length_ptr = NULL;
+        bool has_wild_card_matching(false);
+#endif
         for( unsigned int* length_iter = m_sequences_length; sequence_iter != m_sequences + m_number_of_sequences; ++sequence_iter, ++length_iter )
         {
-            if( isEquivalent( selected_nodes, length, *sequence_iter, *length_iter ))
+            if( isEquivalent( selected_nodes, length, *sequence_iter, *length_iter
+#if defined(USE_WILD_CARDS_IN_BANK)
+                             , true, &has_wild_card_matching
+#endif
+                             ))
             {
+#if defined(USE_WILD_CARDS_IN_BANK)
+                if( has_wild_card_matching )
+                {
+                    sequence_matching_with_wild_card_ptr = sequence_iter;
+                    sequence_matching_with_wild_card_length_ptr = length_iter;
+                    has_wild_card_matching = false;
+                }
+                else
+                {
+                    ++m_last_sent_wild_card;
+                }
+#endif
                 removeSequence(sequence_iter, length_iter);
                 // Sets the last sequence random
                 m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
@@ -236,6 +300,15 @@ namespace three_color
                 return true;
             }
         }
+#if defined(USE_WILD_CARDS_IN_BANK)
+        if( sequence_matching_with_wild_card_ptr )
+        {
+            ++m_last_sent_wild_card;
+            removeSequence(sequence_matching_with_wild_card_ptr, sequence_matching_with_wild_card_length_ptr);
+            // Sets the last sequence random
+            m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
+        }
+#endif
         return false;
     }
     
@@ -284,11 +357,12 @@ namespace three_color
         for( unsigned int* length_iter = m_sequences_length; sequence_iter != m_sequences + m_number_of_sequences; ++sequence_iter, ++length_iter )
         {
             if(  sequence_iter != selected_row_ptr &&
-               isEquivalent(*selected_row_ptr, *selected_row_length_ptr, *sequence_iter, *length_iter))
+               isEquivalent(*selected_row_ptr, *selected_row_length_ptr, *sequence_iter, *length_iter ))
             {
                 // Found a match
                 removeSequence(selected_row_ptr, selected_row_length_ptr);
                 m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
+                break;
             }
         }
         
@@ -324,6 +398,13 @@ namespace three_color
         }
         
         // Is unique, so it can be added.
+#if defined(USE_WILD_CARDS_IN_BANK)
+        if( m_last_sent_wild_card == k_turn_to_send_wild_card )
+        {
+            unsigned int index_to_put_wild_card = my_utility::random(length);
+            m_random_sequence[ index_to_put_wild_card ] = k_wild_card;
+        }
+#endif
         setColorNodes( m_random_sequence, length, sequence );
         
         return length;

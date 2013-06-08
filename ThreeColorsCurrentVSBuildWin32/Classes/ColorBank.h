@@ -34,7 +34,14 @@ namespace three_color
         m_number_of_sequences( number_of_sequences ),
         m_number_of_colors( number_of_colors ),
         m_min_sequence_length( min_sequence_length ),
-        m_max_sequence_length( max_sequence_length ) {}
+        m_max_sequence_length( max_sequence_length )
+#if defined(USE_WILD_CARDS_IN_BANK)
+        , m_last_sent_wild_card( 0 )
+#endif
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+        , m_can_shufle_node( false )
+#endif
+        {}
         
         ~ColorBank();
         
@@ -86,6 +93,10 @@ namespace three_color
 		m_number_of_colors,
 		m_min_sequence_length,
 		m_max_sequence_length;
+        
+#if defined(USE_WILD_CARDS_IN_BANK)
+        unsigned int m_last_sent_wild_card;
+#endif
         
 #if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
         bool m_can_shufle_node;

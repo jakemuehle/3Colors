@@ -13,7 +13,10 @@ namespace three_color
         {
             { 255, 0, 0 },
             { 0, 255, 0 },
-            { 0, 0, 255 }
+            { 0, 0, 255 },
+#if defined(USE_WILD_CARDS_IN_BANK)
+            { 255, 255, 255 },
+#endif
         };
         
         enum ColorNodeMasks

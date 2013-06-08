@@ -55,6 +55,10 @@ namespace three_color
     bool startsEquivalent(
                           ColorNode i_nodes[], unsigned int i_node_length,
                           PaletteIndex i_sequence[], unsigned int i_sequence_length,
+#if defined(USE_WILD_CARDS_IN_BANK)
+                          bool i_does_wild_card_match,
+                          bool * o_has_wild_card_matching,
+#endif
                           bool * o_does_match_forward, bool * o_does_match_backward )
     {
         if( i_node_length < i_sequence_length )
@@ -67,6 +71,18 @@ namespace three_color
         ColorNode* node_iter = i_nodes;
         for( PaletteIndex* sequence_iter = i_sequence; sequence_iter != i_sequence + i_sequence_length; ++sequence_iter, ++node_iter )
         {
+#if defined(USE_WILD_CARDS_IN_BANK)
+            if( i_does_wild_card_match &&
+               ( node_iter->getPaletteIndex() == k_wild_card ||
+                *sequence_iter == k_wild_card ) )
+            {
+                if( o_has_wild_card_matching )
+                {
+                    *o_has_wild_card_matching = true;
+                }
+            }
+            else
+#endif
             if( node_iter->getPaletteIndex() != *sequence_iter )
             {
                 // Found a difference, so it doesn't match forwards.
@@ -88,10 +104,29 @@ namespace three_color
         
     checkBackwards:
         
+#if defined(USE_WILD_CARDS_IN_BANK)
+        if( o_has_wild_card_matching )
+        {
+            *o_has_wild_card_matching = false;
+        }
+#endif
+        
         // Check backwards
         node_iter = i_nodes + i_node_length - 1;
         for( PaletteIndex* sequence_iter = i_sequence; sequence_iter != i_sequence + i_sequence_length; ++sequence_iter, --node_iter )
         {
+#if defined(USE_WILD_CARDS_IN_BANK)
+            if( i_does_wild_card_match &&
+               ( node_iter->getPaletteIndex() == k_wild_card ||
+                *sequence_iter == k_wild_card ) )
+            {
+                if( o_has_wild_card_matching )
+                {
+                    *o_has_wild_card_matching = true;
+                }
+            }
+            else
+#endif
             if( node_iter->getPaletteIndex() != *sequence_iter )
             {
                 // Found a difference, so it doesn't match backwards.
@@ -116,15 +151,28 @@ namespace three_color
     
     bool isEquivalent(
                       ColorNode nodes[], unsigned int node_length,
-                      PaletteIndex sequence[], unsigned int sequence_length )
+                      PaletteIndex sequence[], unsigned int sequence_length
+#if defined(USE_WILD_CARDS_IN_BANK)
+                      , bool i_does_wild_card_match,
+                      bool * o_has_wild_card_matching
+#endif
+                      )
     {
         // If they have the same length and starts equivalent, then they are completly eqivalent.
-        return node_length == sequence_length && startsEquivalent( nodes, node_length, sequence, sequence_length );
+        return node_length == sequence_length && startsEquivalent( nodes, node_length, sequence, sequence_length
+#if defined(USE_WILD_CARDS_IN_BANK)
+                                                                  ,i_does_wild_card_match,o_has_wild_card_matching
+#endif
+                                                                  );
     }
     
     bool startsEquivalent(
                           ColorNode i_nodes_a[], unsigned int i_node_length_a,
                           ColorNode i_nodes_b[], unsigned int i_node_length_b,
+#if defined(USE_WILD_CARDS_IN_BANK)
+                          bool i_does_wild_card_match,
+                          bool * o_has_wild_card_matching,
+#endif
                           bool * o_does_match_forward, bool * o_does_match_backward )
     {
         if( i_node_length_a < i_node_length_b )
@@ -137,6 +185,18 @@ namespace three_color
         ColorNode* node_a_iter = i_nodes_a;
         for( ColorNode* node_b_iter = i_nodes_b; node_b_iter != i_nodes_b + i_node_length_b; ++node_b_iter, ++node_a_iter )
         {
+#if defined(USE_WILD_CARDS_IN_BANK)
+            if( i_does_wild_card_match &&
+               ( node_a_iter->getPaletteIndex() == k_wild_card ||
+                node_b_iter->getPaletteIndex() == k_wild_card ) )
+            {
+                if( o_has_wild_card_matching )
+                {
+                    *o_has_wild_card_matching = true;
+                }
+            }
+            else
+#endif
             if( node_a_iter->getPaletteIndex() != node_b_iter->getPaletteIndex() )
             {
                 // Found a difference, so it doesn't match forwards.
@@ -162,6 +222,18 @@ namespace three_color
         node_a_iter = i_nodes_a + i_node_length_a - 1;
         for( ColorNode* node_b_iter = i_nodes_b; node_b_iter != i_nodes_b + i_node_length_b; ++node_b_iter, --node_a_iter )
         {
+#if defined(USE_WILD_CARDS_IN_BANK)
+            if( i_does_wild_card_match &&
+               ( node_a_iter->getPaletteIndex() == k_wild_card ||
+                node_b_iter->getPaletteIndex() == k_wild_card ) )
+            {
+                if( o_has_wild_card_matching )
+                {
+                    *o_has_wild_card_matching = true;
+                }
+            }
+            else
+#endif
             if( node_a_iter->getPaletteIndex() != node_b_iter->getPaletteIndex() )
             {
                 // Found a difference, so it doesn't match backwards.
@@ -186,10 +258,19 @@ namespace three_color
     
     bool isEquivalent(
                       ColorNode nodes_a[], unsigned int node_length_a,
-                      ColorNode nodes_b[], unsigned int node_length_b )
+                      ColorNode nodes_b[], unsigned int node_length_b
+#if defined(USE_WILD_CARDS_IN_BANK)
+                      , bool i_does_wild_card_match,
+                      bool * o_has_wild_card_matching
+#endif
+                      )
     {
         // If they have the same length and starts equivalent, then they are completly eqivalent.
-        return node_length_a == node_length_b && startsEquivalent( nodes_a, node_length_a, nodes_b, node_length_b );
+        return node_length_a == node_length_b && startsEquivalent( nodes_a, node_length_a, nodes_b, node_length_b
+#if defined(USE_WILD_CARDS_IN_BANK)
+                                                                  ,i_does_wild_card_match,o_has_wild_card_matching
+#endif
+                                                                  );
     }
     
 }

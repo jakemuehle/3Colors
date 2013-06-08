@@ -44,23 +44,41 @@ namespace three_color
     bool startsEquivalent(
                           ColorNode i_nodes[], unsigned int i_node_length,
                           PaletteIndex i_sequence[], unsigned int i_sequence_length,
+#if defined(USE_WILD_CARDS_IN_BANK)
+                          bool i_does_wild_card_match = false,
+                          bool * o_has_wild_card_matching = NULL,
+#endif
                           bool * o_does_match_forward = NULL, bool * o_does_match_backward = NULL );
     
     // Checks if the nodes' colors is the same as the sequence going forwards or backwards.
     bool isEquivalent(
                       ColorNode i_nodes[], unsigned int i_node_length,
-                      PaletteIndex i_sequence[], unsigned int i_sequence_length );
+                      PaletteIndex i_sequence[], unsigned int i_sequence_length
+#if defined(USE_WILD_CARDS_IN_BANK)
+                      , bool i_does_wild_card_match = false,
+                      bool * o_has_wild_card_matching = NULL
+#endif
+                      );
     
     // Checks if the nodes a's colors starts with or ends with the color sequence.
     bool startsEquivalent(
                           ColorNode i_nodes_a[], unsigned int i_node_length_a,
                           ColorNode i_nodes_b[], unsigned int i_node_length_b,
+#if defined(USE_WILD_CARDS_IN_BANK)
+                          bool i_does_wild_card_match = false,
+                          bool * o_has_wild_card_matching = NULL,
+#endif
                           bool * o_does_match_forward = NULL, bool * o_does_match_backward = NULL );
     
     // Checks if the nodes' colors is the same as the sequence going forwards or backwards.
     bool isEquivalent(
                       ColorNode i_nodes_a[], unsigned int i_node_length_a,
-                      ColorNode i_nodes_b[], unsigned int i_node_length_b );
+                      ColorNode i_nodes_b[], unsigned int i_node_length_b
+#if defined(USE_WILD_CARDS_IN_BANK)
+                      , bool i_does_wild_card_match = false,
+                      bool * o_has_wild_card_matching = NULL
+#endif
+                      );
     
 }
 
