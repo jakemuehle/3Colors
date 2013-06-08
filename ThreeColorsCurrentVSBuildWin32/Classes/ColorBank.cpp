@@ -6,6 +6,10 @@
 #include "ColorNode.h"
 #include "ColorSequence.h"
 
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+#include "my_math.h"
+#endif
+
 namespace three_color
 {
     
@@ -39,6 +43,13 @@ namespace three_color
     
     bool ColorBank::init()
     {
+        //////////////////////////////
+        // 1. super init first
+        if ( !CCLayer::init() )
+        {
+            return false;
+        }
+        
         m_sequences = new ColorNode*[m_number_of_sequences];
         assert( m_sequences && "New failed to create the sequence array for the bank." );
         
@@ -79,6 +90,10 @@ namespace three_color
         {
             *sequence_length_iter++ = setRandomSequence( *sequence_iter );
         }
+        
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+        m_bTouchEnabled = true;
+#endif
         
         return true;
     }
@@ -128,6 +143,9 @@ namespace three_color
     
     bool ColorBank::select( ColorNode selected_nodes[], unsigned int length )
     {
+        // Do this for now until I go into searching to deselect
+        deselectAll();
+        
         bool found_selection = false;
         
         unsigned int* length_iter = m_sequences_length;
@@ -191,6 +209,10 @@ namespace three_color
                 removeSequence(sequence_iter, length_iter);
                 // Sets the last sequence random
                 m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
+                
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+                m_can_shufle_node = true;
+#endif
                 return true;
             }
         }
@@ -207,11 +229,78 @@ namespace three_color
                 removeSequence(sequence_iter, length_iter);
                 // Sets the last sequence random
                 m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
+                
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+                m_can_shufle_node = true;
+#endif
                 return true;
             }
         }
         return false;
     }
+    
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+    bool ColorBank::ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent)
+    {
+        if( ! m_can_shufle_node )
+        {
+            return false;
+        }
+        
+        cocos2d::CCPoint point = pTouch->getLocationInView();
+        point = cocos2d::CCDirector::sharedDirector()->convertToGL(point);
+        
+        // Find the node that is selected
+        unsigned int column = (unsigned int)((point.x - m_bounds.getMinX()) /getHorizontalSpacing()),
+            row = (unsigned int)((point.y - m_bounds.getMinY()) / getVerticalSpacing()),
+            * selected_row_length_ptr(m_sequences_length + row);
+        
+        // Casting a negative number to an unsigned int should make the number huge, so checking less than zero is covered.
+        if( column >= *selected_row_length_ptr || row >= m_number_of_sequences )
+        {
+            // Out of bounds
+            return false;
+        }
+        
+        ColorNode** selected_row_ptr = m_sequences + row;
+        ColorNode& selected_node = (*selected_row_ptr)[column];
+        if( ! selected_node.isOnSprite(point) )
+        {
+            return false;
+        }
+        
+        // Chose the new color
+        PaletteIndex new_color = my_utility::random(m_number_of_colors-1);
+        if( new_color >= selected_node.getPaletteIndex() )
+        {
+            ++new_color;
+        }
+        
+        selected_node.setColor(new_color);
+        m_can_shufle_node = false;
+        
+        // Check to see if the new sequence is unique.
+        ColorNode** sequence_iter = m_sequences;
+        for( unsigned int* length_iter = m_sequences_length; sequence_iter != m_sequences + m_number_of_sequences; ++sequence_iter, ++length_iter )
+        {
+            if(  sequence_iter != selected_row_ptr &&
+               isEquivalent(*selected_row_ptr, *selected_row_length_ptr, *sequence_iter, *length_iter))
+            {
+                // Found a match
+                removeSequence(selected_row_ptr, selected_row_length_ptr);
+                m_sequences_length[m_number_of_sequences-1]=setRandomSequence(m_sequences[m_number_of_sequences-1]);
+            }
+        }
+        
+        return true;
+    }
+    
+    void ColorBank::registerWithTouchDispatcher()
+    {
+        cocos2d::CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,0,true);
+    }
+#endif
+    
     
     unsigned int ColorBank::setRandomSequence( ColorNode* sequence )
     {

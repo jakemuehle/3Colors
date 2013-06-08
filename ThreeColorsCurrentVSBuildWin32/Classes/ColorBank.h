@@ -9,6 +9,9 @@
 
 #include "ThreeColorTypes.h"
 
+// Special features each have a macro to be easily taken out
+#define PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN
+
 namespace three_color
 {
     
@@ -61,6 +64,12 @@ namespace three_color
         bool makeSelection( PaletteIndex selected_colors[], unsigned int length );
         bool makeSelection( ColorNode selected_nodes[], unsigned int length );
         
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+        bool ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent);
+        
+        void registerWithTouchDispatcher();
+#endif
+        
     private:
         
         const cocos2d::CCRect m_bounds;
@@ -77,6 +86,10 @@ namespace three_color
 		m_number_of_colors,
 		m_min_sequence_length,
 		m_max_sequence_length;
+        
+#if defined(PLAYER_CAN_CHOOSE_TO_SHUFFLE_A_NODE_ONCE_EVERY_TURN)
+        bool m_can_shufle_node;
+#endif
         
         unsigned int setRandomSequence( ColorNode* sequence );
         void removeSequence( ColorNode** sequence_ptr, unsigned int* length_ptr );

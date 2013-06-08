@@ -4,8 +4,8 @@
 #include "ColorGrid.h"
 
 // Test macros
-//#define TEST_MAKE_SELECTION
-#define TEST_SELECT
+#define TEST_MAKE_SELECTION
+//#define TEST_SELECT
 
 using namespace cocos2d;
 

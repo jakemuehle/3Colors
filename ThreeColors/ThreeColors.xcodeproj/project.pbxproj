@@ -264,15 +264,17 @@
 		DBBB6E4E1753BA3D005CE826 /* cpSpatialIndex.c in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E4D1753BA3D005CE826 /* cpSpatialIndex.c */; };
 		DBBB6E501753BA3D005CE826 /* cpSweep1D.c in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E4F1753BA3D005CE826 /* cpSweep1D.c */; };
 		DBBB6E521753BA3D005CE826 /* cpVect.c in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E511753BA3D005CE826 /* cpVect.c */; };
-		DBBB6E591753BA3D005CE826 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E581753BA3D005CE826 /* AppDelegate.cpp */; };
-		DBBB6E6F1753C72E005CE826 /* ColorBank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E621753BAC6005CE826 /* ColorBank.cpp */; };
-		DBBB6E701753C72E005CE826 /* ColorNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E641753BAC6005CE826 /* ColorNode.cpp */; };
-		DBBB6E711753C72E005CE826 /* ColorNodeFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E661753BAC6005CE826 /* ColorNodeFrames.cpp */; };
-		DBBB6E721753C72E005CE826 /* ColorSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E681753BAC6005CE826 /* ColorSequence.cpp */; };
-		DBBB6E731753C72E005CE826 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E6A1753BAC6005CE826 /* HelloWorldScene.cpp */; };
-		DBBB6E741753C72E005CE826 /* my_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBB6E6C1753BAC6005CE826 /* my_math.cpp */; };
 		DBBB6E771753C8B2005CE826 /* ColorNode.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBBB6E751753C8B2005CE826 /* ColorNode.plist */; };
 		DBBB6E781753C8B2005CE826 /* ColorNode.png in Resources */ = {isa = PBXBuildFile; fileRef = DBBB6E761753C8B2005CE826 /* ColorNode.png */; };
+		DBC3604F176390CE007F8356 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604517639056007F8356 /* AppDelegate.cpp */; };
+		DBC36050176390CE007F8356 /* ColorBank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604617639056007F8356 /* ColorBank.cpp */; };
+		DBC36051176390CE007F8356 /* ColorGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604717639056007F8356 /* ColorGrid.cpp */; };
+		DBC36052176390CE007F8356 /* ColorNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604817639056007F8356 /* ColorNode.cpp */; };
+		DBC36053176390CE007F8356 /* ColorNodeFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604917639056007F8356 /* ColorNodeFrames.cpp */; };
+		DBC36054176390CE007F8356 /* ColorSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604A17639056007F8356 /* ColorSequence.cpp */; };
+		DBC36055176390CE007F8356 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604B17639056007F8356 /* HelloWorldScene.cpp */; };
+		DBC36057176390CE007F8356 /* my_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604D17639056007F8356 /* my_math.cpp */; };
+		DBC36058176390CE007F8356 /* Polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC3604E17639056007F8356 /* Polygon.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -835,23 +837,28 @@
 		DBBB6E511753BA3D005CE826 /* cpVect.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cpVect.c; path = libs/chipmunk/src/cpVect.c; sourceTree = "<group>"; };
 		DBBB6E531753BA3D005CE826 /* prime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = prime.h; path = libs/chipmunk/src/prime.h; sourceTree = "<group>"; };
 		DBBB6E551753BA3D005CE826 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		DBBB6E571753BA3D005CE826 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
-		DBBB6E581753BA3D005CE826 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
-		DBBB6E621753BAC6005CE826 /* ColorBank.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorBank.cpp; path = Classes/ColorBank.cpp; sourceTree = "<group>"; };
-		DBBB6E631753BAC6005CE826 /* ColorBank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorBank.h; path = Classes/ColorBank.h; sourceTree = "<group>"; };
-		DBBB6E641753BAC6005CE826 /* ColorNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorNode.cpp; path = Classes/ColorNode.cpp; sourceTree = "<group>"; };
-		DBBB6E651753BAC6005CE826 /* ColorNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorNode.h; path = Classes/ColorNode.h; sourceTree = "<group>"; };
-		DBBB6E661753BAC6005CE826 /* ColorNodeFrames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorNodeFrames.cpp; path = Classes/ColorNodeFrames.cpp; sourceTree = "<group>"; };
-		DBBB6E671753BAC6005CE826 /* ColorNodeFrames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorNodeFrames.h; path = Classes/ColorNodeFrames.h; sourceTree = "<group>"; };
-		DBBB6E681753BAC6005CE826 /* ColorSequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorSequence.cpp; path = Classes/ColorSequence.cpp; sourceTree = "<group>"; };
-		DBBB6E691753BAC6005CE826 /* ColorSequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorSequence.h; path = Classes/ColorSequence.h; sourceTree = "<group>"; };
-		DBBB6E6A1753BAC6005CE826 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
-		DBBB6E6B1753BAC6005CE826 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
-		DBBB6E6C1753BAC6005CE826 /* my_math.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = my_math.cpp; path = Classes/my_math.cpp; sourceTree = "<group>"; };
-		DBBB6E6D1753BAC6005CE826 /* my_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = my_math.h; path = Classes/my_math.h; sourceTree = "<group>"; };
-		DBBB6E6E1753BAC6005CE826 /* ThreeColorTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ThreeColorTypes.h; path = Classes/ThreeColorTypes.h; sourceTree = "<group>"; };
 		DBBB6E751753C8B2005CE826 /* ColorNode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ColorNode.plist; path = Resources/ColorNode.plist; sourceTree = "<group>"; };
 		DBBB6E761753C8B2005CE826 /* ColorNode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ColorNode.png; path = Resources/ColorNode.png; sourceTree = "<group>"; };
+		DBC3603917639056007F8356 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/AppDelegate.h; sourceTree = "<group>"; };
+		DBC3603A17639056007F8356 /* AppMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppMacros.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/AppMacros.h; sourceTree = "<group>"; };
+		DBC3603B17639056007F8356 /* ColorBank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorBank.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorBank.h; sourceTree = "<group>"; };
+		DBC3603C17639056007F8356 /* ColorGrid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorGrid.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorGrid.h; sourceTree = "<group>"; };
+		DBC3603D17639056007F8356 /* ColorNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorNode.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorNode.h; sourceTree = "<group>"; };
+		DBC3603E17639056007F8356 /* ColorNodeFrames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorNodeFrames.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorNodeFrames.h; sourceTree = "<group>"; };
+		DBC3603F17639056007F8356 /* ColorSequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorSequence.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorSequence.h; sourceTree = "<group>"; };
+		DBC3604017639056007F8356 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/HelloWorldScene.h; sourceTree = "<group>"; };
+		DBC3604217639056007F8356 /* my_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = my_math.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/my_math.h; sourceTree = "<group>"; };
+		DBC3604317639056007F8356 /* Polygon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Polygon.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/Polygon.h; sourceTree = "<group>"; };
+		DBC3604417639056007F8356 /* ThreeColorTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ThreeColorTypes.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ThreeColorTypes.h; sourceTree = "<group>"; };
+		DBC3604517639056007F8356 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/AppDelegate.cpp; sourceTree = "<group>"; };
+		DBC3604617639056007F8356 /* ColorBank.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorBank.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorBank.cpp; sourceTree = "<group>"; };
+		DBC3604717639056007F8356 /* ColorGrid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorGrid.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorGrid.cpp; sourceTree = "<group>"; };
+		DBC3604817639056007F8356 /* ColorNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorNode.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorNode.cpp; sourceTree = "<group>"; };
+		DBC3604917639056007F8356 /* ColorNodeFrames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorNodeFrames.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorNodeFrames.cpp; sourceTree = "<group>"; };
+		DBC3604A17639056007F8356 /* ColorSequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorSequence.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorSequence.cpp; sourceTree = "<group>"; };
+		DBC3604B17639056007F8356 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
+		DBC3604D17639056007F8356 /* my_math.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = my_math.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/my_math.cpp; sourceTree = "<group>"; };
+		DBC3604E17639056007F8356 /* Polygon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Polygon.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/Polygon.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1998,21 +2005,26 @@
 		DBBB6E561753BA3D005CE826 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DBBB6E621753BAC6005CE826 /* ColorBank.cpp */,
-				DBBB6E631753BAC6005CE826 /* ColorBank.h */,
-				DBBB6E641753BAC6005CE826 /* ColorNode.cpp */,
-				DBBB6E651753BAC6005CE826 /* ColorNode.h */,
-				DBBB6E661753BAC6005CE826 /* ColorNodeFrames.cpp */,
-				DBBB6E671753BAC6005CE826 /* ColorNodeFrames.h */,
-				DBBB6E681753BAC6005CE826 /* ColorSequence.cpp */,
-				DBBB6E691753BAC6005CE826 /* ColorSequence.h */,
-				DBBB6E6A1753BAC6005CE826 /* HelloWorldScene.cpp */,
-				DBBB6E6B1753BAC6005CE826 /* HelloWorldScene.h */,
-				DBBB6E6C1753BAC6005CE826 /* my_math.cpp */,
-				DBBB6E6D1753BAC6005CE826 /* my_math.h */,
-				DBBB6E6E1753BAC6005CE826 /* ThreeColorTypes.h */,
-				DBBB6E571753BA3D005CE826 /* AppDelegate.h */,
-				DBBB6E581753BA3D005CE826 /* AppDelegate.cpp */,
+				DBC3603917639056007F8356 /* AppDelegate.h */,
+				DBC3603A17639056007F8356 /* AppMacros.h */,
+				DBC3603B17639056007F8356 /* ColorBank.h */,
+				DBC3603C17639056007F8356 /* ColorGrid.h */,
+				DBC3603D17639056007F8356 /* ColorNode.h */,
+				DBC3603E17639056007F8356 /* ColorNodeFrames.h */,
+				DBC3603F17639056007F8356 /* ColorSequence.h */,
+				DBC3604017639056007F8356 /* HelloWorldScene.h */,
+				DBC3604217639056007F8356 /* my_math.h */,
+				DBC3604317639056007F8356 /* Polygon.h */,
+				DBC3604417639056007F8356 /* ThreeColorTypes.h */,
+				DBC3604517639056007F8356 /* AppDelegate.cpp */,
+				DBC3604617639056007F8356 /* ColorBank.cpp */,
+				DBC3604717639056007F8356 /* ColorGrid.cpp */,
+				DBC3604817639056007F8356 /* ColorNode.cpp */,
+				DBC3604917639056007F8356 /* ColorNodeFrames.cpp */,
+				DBC3604A17639056007F8356 /* ColorSequence.cpp */,
+				DBC3604B17639056007F8356 /* HelloWorldScene.cpp */,
+				DBC3604D17639056007F8356 /* my_math.cpp */,
+				DBC3604E17639056007F8356 /* Polygon.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2092,12 +2104,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBBB6E6F1753C72E005CE826 /* ColorBank.cpp in Sources */,
-				DBBB6E701753C72E005CE826 /* ColorNode.cpp in Sources */,
-				DBBB6E711753C72E005CE826 /* ColorNodeFrames.cpp in Sources */,
-				DBBB6E721753C72E005CE826 /* ColorSequence.cpp in Sources */,
-				DBBB6E731753C72E005CE826 /* HelloWorldScene.cpp in Sources */,
-				DBBB6E741753C72E005CE826 /* my_math.cpp in Sources */,
+				DBC3604F176390CE007F8356 /* AppDelegate.cpp in Sources */,
+				DBC36050176390CE007F8356 /* ColorBank.cpp in Sources */,
+				DBC36051176390CE007F8356 /* ColorGrid.cpp in Sources */,
+				DBC36052176390CE007F8356 /* ColorNode.cpp in Sources */,
+				DBC36053176390CE007F8356 /* ColorNodeFrames.cpp in Sources */,
+				DBC36054176390CE007F8356 /* ColorSequence.cpp in Sources */,
+				DBC36055176390CE007F8356 /* HelloWorldScene.cpp in Sources */,
+				DBC36057176390CE007F8356 /* my_math.cpp in Sources */,
+				DBC36058176390CE007F8356 /* Polygon.cpp in Sources */,
 				DBBB6B101753BA34005CE826 /* AppController.mm in Sources */,
 				DBBB6B131753BA34005CE826 /* RootViewController.mm in Sources */,
 				DBBB6B151753BA34005CE826 /* main.m in Sources */,
@@ -2332,7 +2347,6 @@
 				DBBB6E4E1753BA3D005CE826 /* cpSpatialIndex.c in Sources */,
 				DBBB6E501753BA3D005CE826 /* cpSweep1D.c in Sources */,
 				DBBB6E521753BA3D005CE826 /* cpVect.c in Sources */,
-				DBBB6E591753BA3D005CE826 /* AppDelegate.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2470,6 +2484,7 @@
 				DBBB6E611753BA3D005CE826 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
