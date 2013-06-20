@@ -135,6 +135,7 @@ namespace three_color
                 {
                     node_iter->select();
                 }
+				continue;
             }
             else if( matches_backward )
             {
@@ -142,7 +143,7 @@ namespace three_color
                 {
                     node_iter->select();
                 }
-                    
+                continue;
             }
         }
         

@@ -26,13 +26,22 @@ public:
     // preprocessor macro for "static create()" constructor ( node() deprecated )
     CREATE_FUNC(HelloWorld);
     
-    bool ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent);
+    bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+	void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+	void ccTouchCancelled(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+	void ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
     
     void registerWithTouchDispatcher();
     
 private:
     three_color::ColorBank* bank;
 	three_color::ColorGrid* m_pColorGrid;
+
+	unsigned int m_nColors;
+	unsigned int m_nRows;
+	unsigned int m_nColumns;
+	unsigned int m_nComboSize;
+	unsigned int m_nSequences;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

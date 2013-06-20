@@ -1,11 +1,7 @@
 #include "HelloWorldScene.h"
-#include "ColorBank.h"
 #include "ColorNode.h"
+#include "ColorBank.h"
 #include "ColorGrid.h"
-
-// Test macros
-#define TEST_MAKE_SELECTION
-//#define TEST_SELECT
 
 using namespace cocos2d;
 
@@ -84,13 +80,19 @@ bool HelloWorld::init()
 
     // add the sprite as a child to this layer
     //this->addChild(pSprite, 0);
-    
-	bank = new three_color::ColorBank(cocos2d::CCRect(0, size.height - 400, 200, 200),4,3,3,3);
+
+	m_nColors = 3;
+	m_nRows = 6;
+	m_nColumns = 6;
+	m_nComboSize = 3;
+	m_nSequences = 4;
+
+	bank = new three_color::ColorBank(cocos2d::CCRect(0, size.height - 400, 200, 200),m_nSequences,m_nColors,m_nComboSize,m_nComboSize);
     bank->init();
 	bank->setPosition(0,0);
     this->addChild( bank, 1 );
 
-	m_pColorGrid = new three_color::ColorGrid(cocos2d::CCRect(200,0,size.width - 175, size.height), 8, 8, 3, 8, 8, 8, 8);
+	m_pColorGrid = new three_color::ColorGrid(cocos2d::CCRect(200,0,size.width - 175, size.height), m_nRows, m_nColumns, m_nColors, m_nComboSize);
 	m_pColorGrid->init();
 	m_pColorGrid->setPosition(0,0);
 	this->addChild(m_pColorGrid, 1);
@@ -100,42 +102,38 @@ bool HelloWorld::init()
     return true;
 }
 
-bool HelloWorld::ccTouchBegan(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent)
+bool HelloWorld::ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
 {
-    
-#ifdef TEST_MAKE_SELECTION
-    
-    three_color::PaletteIndex colors[] = { 2, 1, 1 };
-    
-    bank->makeSelection(colors, 3);
-    
-#endif // TEST_SELECT
-    
-#ifdef TEST_SELECT
-    
-    static bool should_select = true;
-    
-    if( should_select )
-    {
-        three_color::PaletteIndex colors[] = { 1, 0 };
-        
-        bank->select(colors, 1);
-    }
-    else
-    {
-        bank->deselectAll();
-    }
-    
-    should_select = ! should_select;
-    
-#endif // TEST_SELECT
-    
-    return true;
+	bank->deselectAll();
+	bank->select(m_pColorGrid->GetSequenceColors(), m_pColorGrid->GetNumberPoints());
+
+	return true;
+}
+
+void HelloWorld::ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
+{
+	if(m_pColorGrid->IsFull())
+	{
+		m_pColorGrid->HandleNodes(bank->makeSelection(m_pColorGrid->GetSequenceColors(), m_pColorGrid->GetNumberPoints()));
+	}
+
+	bank->deselectAll();
+}
+
+void HelloWorld::ccTouchCancelled(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
+{
+
+}
+
+void HelloWorld::ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
+{
+	bank->deselectAll();
+	bank->select(m_pColorGrid->GetSequenceColors(), m_pColorGrid->GetNumberPoints());
 }
 
 void HelloWorld::registerWithTouchDispatcher()
 {
-    cocos2d::CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,0,true);
+    cocos2d::CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,0,false);
 }
 
 void HelloWorld::menuCloseCallback(CCObject* pSender)
