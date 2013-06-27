@@ -27,7 +27,7 @@ namespace three_color
         {
             if(m_quantity_by_color)
             {
-                delete m_quantity_by_color;
+                delete [] m_quantity_by_color;
                 m_quantity_by_color = NULL;
             }
         }
@@ -45,6 +45,9 @@ namespace three_color
         }
         
         int getTotal() const;
+        
+        // Gets a random color from the colors stored, but guarantees the minimal_percent for each color.
+        PaletteIndex getRandomColor(float minimal_percent) const;
     
     private:
         int * m_quantity_by_color;

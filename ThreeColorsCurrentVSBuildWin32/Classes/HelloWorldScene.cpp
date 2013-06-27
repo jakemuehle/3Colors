@@ -99,6 +99,8 @@ bool HelloWorld::init()
     
     m_bTouchEnabled = true;
     
+    bank->setUnusedColors(m_pColorGrid->getUncapturedColorCount());
+    
     return true;
 }
 

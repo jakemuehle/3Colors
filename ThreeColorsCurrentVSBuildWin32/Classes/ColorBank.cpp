@@ -388,7 +388,7 @@ namespace three_color
         unsigned int* sequence_length_iter;
         
         unsigned int length =
-        getRandomSequence( m_number_of_colors, m_min_sequence_length, m_max_sequence_length, m_random_sequence );
+        getRandomSequence( m_number_of_colors, m_min_sequence_length, m_max_sequence_length, m_unused_count, 0.1f, m_random_sequence );
         
     checkIfSequenceIsUnique:
         

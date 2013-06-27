@@ -2,6 +2,7 @@
 
 #include "my_math.h"
 #include "ColorNode.h"
+#include "ColorCount.h"
 
 namespace three_color
 {
@@ -10,6 +11,8 @@ namespace three_color
                                    unsigned int i_number_of_colors,
                                    unsigned int i_min_length,
                                    unsigned int i_max_length,
+                                   const ColorCount * i_color_pool,
+                                   float i_minimal_percent,
                                    PaletteIndex o_sequence[] )
     {
         unsigned int lengthRange = i_max_length - i_min_length,
@@ -22,7 +25,9 @@ namespace three_color
         
         for( PaletteIndex * iter = o_sequence; iter != o_sequence + length; ++iter )
         {
-            *iter = my_utility::random( i_number_of_colors );
+            *iter = (i_color_pool) ?
+                i_color_pool->getRandomColor(i_minimal_percent) : // Use the color pool if available
+                my_utility::random( i_number_of_colors ); // Otherwise, uniform distribution
         }
         
         return length;

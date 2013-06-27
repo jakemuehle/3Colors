@@ -13,16 +13,33 @@ namespace three_color
 {
     
     class ColorNode;
+    class ColorCount;
     
     // Gets a random sequence of colors ranging from pallet index 0 (inclusive) to i_numberOfColors (exclusive).
     // The length of the sequence outputted is between i_min_length and i_max_length, both inclusive.
+    // The i_color_pool is used to biased the generated colors, but guarantees each color has a chance of i_minimal_percent.
     // The output, o_sequence, is an array, allocated by the caller, that contains the random sequence.
     // Returns the lenght of the sequence.
     unsigned int getRandomSequence(
                                    unsigned int i_number_of_colors,
                                    unsigned int i_min_length,
                                    unsigned int i_max_length,
+                                   const ColorCount * i_color_pool,
+                                   float i_minimal_percent,
                                    PaletteIndex o_sequence[] );
+    
+    // Gets a random sequence of colors ranging from pallet index 0 (inclusive) to i_numberOfColors (exclusive).
+    // The length of the sequence outputted is between i_min_length and i_max_length, both inclusive.
+    // The output, o_sequence, is an array, allocated by the caller, that contains the random sequence.
+    // Returns the lenght of the sequence.
+    inline unsigned int getRandomSequence(
+                                   unsigned int i_number_of_colors,
+                                   unsigned int i_min_length,
+                                   unsigned int i_max_length,
+                                   PaletteIndex o_sequence[] )
+    {
+        return getRandomSequence(i_number_of_colors, i_min_length, i_max_length, NULL, 0.0f, o_sequence);
+    }
     
     // Make some random change to the color sequence.
     unsigned int makeARandomChange(

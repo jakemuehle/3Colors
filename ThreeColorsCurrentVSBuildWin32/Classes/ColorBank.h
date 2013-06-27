@@ -16,6 +16,7 @@ namespace three_color
 {
     
     class ColorNode;
+    class ColorCount;
     
     class ColorBank : public cocos2d::CCLayer
     {
@@ -77,9 +78,16 @@ namespace three_color
         void registerWithTouchDispatcher();
 #endif
         
+        inline void setUnusedColors(const ColorCount * unused_count)
+        {
+            m_unused_count = unused_count;
+        }
+        
     private:
         
         const cocos2d::CCRect m_bounds;
+        
+        const ColorCount * m_unused_count;
         
         // An array containing color sequences, which is also an array.
         // Two dimentional to allow swapping the sequences and shifting visual positions
