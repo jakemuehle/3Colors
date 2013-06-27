@@ -6,7 +6,7 @@
 #define __3COLOR__TYPES_H
 
 
-//#define USE_WILD_CARDS_IN_BANK
+#define USE_WILD_CARDS_IN_BANK
 
 
 namespace three_color
@@ -17,7 +17,7 @@ namespace three_color
     
     // Special features each have a macro to be easily taken out
 #if defined(USE_WILD_CARDS_IN_BANK)
-    const PaletteIndex k_wild_card = 4;
+    const PaletteIndex k_wild_card = 3;
 #endif
     
 } // three_color

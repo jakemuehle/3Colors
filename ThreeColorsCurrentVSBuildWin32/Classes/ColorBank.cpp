@@ -235,9 +235,11 @@ namespace three_color
                     sequence_matching_with_wild_card_ptr = sequence_iter;
                     sequence_matching_with_wild_card_length_ptr = length_iter;
                     has_wild_card_matching = false;
+                    continue; // Keep looking for a matching sequence without a wild card.
                 }
                 else
                 {
+                    // Increment the wild card counter here when a turn is passed
                     ++m_last_sent_wild_card;
                 }
 #endif
@@ -254,6 +256,7 @@ namespace three_color
 #if defined(USE_WILD_CARDS_IN_BANK)
         if( sequence_matching_with_wild_card_ptr )
         {
+            // Increment the wild card counter here when a turn is passed
             ++m_last_sent_wild_card;
             removeSequence(sequence_matching_with_wild_card_ptr, sequence_matching_with_wild_card_length_ptr);
             // Sets the last sequence random
@@ -285,9 +288,11 @@ namespace three_color
                     sequence_matching_with_wild_card_ptr = sequence_iter;
                     sequence_matching_with_wild_card_length_ptr = length_iter;
                     has_wild_card_matching = false;
+                    continue; // Keep looking for a matching sequence without a wild card.
                 }
                 else
                 {
+                    // Increment the wild card counter here when a turn is passed
                     ++m_last_sent_wild_card;
                 }
 #endif
@@ -304,6 +309,7 @@ namespace three_color
 #if defined(USE_WILD_CARDS_IN_BANK)
         if( sequence_matching_with_wild_card_ptr )
         {
+            // Increment the wild card counter here when a turn is passed
             ++m_last_sent_wild_card;
             removeSequence(sequence_matching_with_wild_card_ptr, sequence_matching_with_wild_card_length_ptr);
             // Sets the last sequence random
@@ -400,10 +406,12 @@ namespace three_color
         
         // Is unique, so it can be added.
 #if defined(USE_WILD_CARDS_IN_BANK)
+        // The wild card counter is not incremented here because this is called in initialization. It is incremented when a turn is passed upon finding a sequence.
         if( m_last_sent_wild_card == k_turn_to_send_wild_card )
         {
             unsigned int index_to_put_wild_card = my_utility::random(length);
             m_random_sequence[ index_to_put_wild_card ] = k_wild_card;
+            m_last_sent_wild_card = 0;
         }
 #endif
         setColorNodes( m_random_sequence, length, sequence );
