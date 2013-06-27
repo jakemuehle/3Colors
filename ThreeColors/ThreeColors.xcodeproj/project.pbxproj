@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB4E5416177BDBD0002E7C52 /* ColorCount.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB4E5414177BDBD0002E7C52 /* ColorCount.cpp */; };
 		DBBB6AE51753BA34005CE826 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBBB6AE41753BA34005CE826 /* QuartzCore.framework */; };
 		DBBB6AE71753BA34005CE826 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBBB6AE61753BA34005CE826 /* OpenGLES.framework */; };
 		DBBB6AE91753BA34005CE826 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBBB6AE81753BA34005CE826 /* OpenAL.framework */; };
@@ -277,6 +278,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB4E5414177BDBD0002E7C52 /* ColorCount.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorCount.cpp; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorCount.cpp; sourceTree = "<group>"; };
+		DB4E5415177BDBD0002E7C52 /* ColorCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorCount.h; path = ../../ThreeColorsCurrentVSBuildWin32/Classes/ColorCount.h; sourceTree = "<group>"; };
 		DBBB6AE11753BA34005CE826 /* ThreeColors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThreeColors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBBB6AE41753BA34005CE826 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DBBB6AE61753BA34005CE826 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -2020,6 +2023,8 @@
 				DBC3604A17639056007F8356 /* ColorSequence.cpp */,
 				DBC3604B17639056007F8356 /* HelloWorldScene.cpp */,
 				DBC3604D17639056007F8356 /* my_math.cpp */,
+				DB4E5414177BDBD0002E7C52 /* ColorCount.cpp */,
+				DB4E5415177BDBD0002E7C52 /* ColorCount.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2341,6 +2346,7 @@
 				DBBB6E4E1753BA3D005CE826 /* cpSpatialIndex.c in Sources */,
 				DBBB6E501753BA3D005CE826 /* cpSweep1D.c in Sources */,
 				DBBB6E521753BA3D005CE826 /* cpVect.c in Sources */,
+				DB4E5416177BDBD0002E7C52 /* ColorCount.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

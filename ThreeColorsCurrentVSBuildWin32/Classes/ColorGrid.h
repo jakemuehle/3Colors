@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "ColorNode.h"
 #include "ThreeColorTypes.h"
+#include "ColorCount.h"
 
 namespace three_color
 {
@@ -41,6 +42,11 @@ namespace three_color
 		void HandleNodes(bool bStatus);
 
 		bool init();
+        
+        inline const ColorCount * getUncapturedColorCount() const
+        {
+            return &m_uncaptured_count;
+        }
 
 	private:
 		cocos2d::CCRect m_cbBounds;
@@ -60,6 +66,8 @@ namespace three_color
 		float fInitialX;
 		cocos2d::CCPoint m_cbLastPoint;
 		unsigned int nLastTouchedNode;
+        
+        ColorCount m_uncaptured_count;
 
 		unsigned int setRandomSequence(ColorNode* pSequence, unsigned int nSize);
 		bool CheckAdjacency(unsigned int nIndex);

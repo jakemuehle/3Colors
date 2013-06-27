@@ -5,6 +5,7 @@
 #include "my_math.h"
 #include "ColorNode.h"
 #include "ColorSequence.h"
+#include "ColorCount.h"
 
 namespace three_color
 {
@@ -12,7 +13,8 @@ namespace three_color
 						 unsigned int nRows,
 						 unsigned int nColumns,
 	 					 unsigned int nColors,
-						 unsigned int nComboSize)
+						 unsigned int nComboSize) :
+        m_uncaptured_count(nColors)
 	{
 		m_cbBounds = cbBounds;
 		m_nRows = nRows;
@@ -94,6 +96,12 @@ namespace three_color
 		for( ColorNode** sequence_iter = m_ppNodes; sequence_iter != m_ppNodes + m_nRows; ++sequence_iter )
 		{
 			setRandomSequence(*sequence_iter, m_nColumns);
+            
+            // Tally up the colors
+            for(ColorNode* node_iter=*sequence_iter;node_iter!=(*sequence_iter)+m_nColumns;++node_iter)
+            {
+                m_uncaptured_count.tally(node_iter->getPaletteIndex());
+            }
 		}
 
 		for(int i = 0; i < m_nComboSize; i++)
@@ -266,9 +274,17 @@ namespace three_color
 				
 				m_pSelectedNodes[i]->setColor(cbRandomColor);
 				m_pSelectedNodes[i]->uncapture();
+                
+                // Add the node's new color back to the tally
+                m_uncaptured_count.tally(m_pSelectedNodes[i]->getPaletteIndex());
 			}
 			else if(bStatus)
+            {
 				m_pSelectedNodes[i]->capture();
+                
+                // Remove the node from the count
+                m_uncaptured_count.tally(m_pSelectedNodes[i]->getPaletteIndex(),-1);
+            }
 		}
 
 		ClearPoints();
