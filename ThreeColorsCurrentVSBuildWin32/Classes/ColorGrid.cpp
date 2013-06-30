@@ -31,20 +31,7 @@ namespace three_color
 
 	ColorGrid::~ColorGrid()
 	{
-		if(m_ppNodes)
-		{
-			for( ColorNode** sequence_iter = m_ppNodes; sequence_iter != m_ppNodes + m_nRows; ++sequence_iter )
-			{
-				if( *sequence_iter )
-				{
-					delete [] *sequence_iter;
-					*sequence_iter = NULL;
-				}
-			}
-			delete [] m_ppNodes;
-			m_ppNodes = NULL;
-		}
-
+		delete m_pNodes;
 		delete m_pSelectedNodes;
 		delete m_pSelectedNodeNumbers;
 		delete m_cbSequenceColors;
@@ -52,58 +39,40 @@ namespace three_color
 
 	bool ColorGrid::init()
 	{
-		m_ppNodes = new ColorNode*[m_nRows];
-		assert(m_ppNodes && "New failed to create the sequence array for the grid.");
+		m_nNodes = m_nRows*m_nColumns;
+		m_pNodes = new ColorNode[m_nNodes];
+		assert(m_pNodes && "New failed to create the sequence array for the grid.");
         
-		m_cbRandomSequence = new PaletteIndex[m_nColumns];
+		m_cbRandomSequence = new PaletteIndex[m_nRows*m_nColumns];
 		assert(m_cbRandomSequence && "New failed to create the random sequence for the grid.");
         
 		fHorizontalSpacing = getHorizontalSpacing();
 		fVerticalSpacing = getVerticalSpacing();
 		fInitialX = fHorizontalSpacing * 0.5f + m_cbBounds.getMinX();
+		fInitialY = fVerticalSpacing * 0.5f + m_cbBounds.getMinY();
 
 		// Note that the origin for the points start in the lower left.
-		cocos2d::CCPoint cbCurrentPoint(fInitialX, fVerticalSpacing * 0.5f + m_cbBounds.getMinY());
+		cocos2d::CCPoint cbCurrentPoint(fInitialX, fInitialY);
 
-		for(int i = 0; i < m_nRows; i++)
+		for(int i = 0; i < m_nNodes; i++)
 		{
-			m_ppNodes[i] = new ColorNode[m_nColumns];
-			assert(m_ppNodes[i] && "New failed to create a sequence for the color grid.");
-			cbCurrentPoint.x = fInitialX;
-
-			for(int j = 0; j < m_nColumns; j++)
-			{
-				bool bIsSuccessful = m_ppNodes[i][j].init();
+			bool bIsSuccessful = m_pNodes[i].init();
 				
-				if(bIsSuccessful)
-				{
-					m_ppNodes[i][j].setPosition(cbCurrentPoint);
-					m_ppNodes[i][j].setParent(this, 1);
-                
-					if(j % 2 == 0)
-						cbCurrentPoint.y += fVerticalSpacing / 2;
-					else
-						cbCurrentPoint.y -= fVerticalSpacing / 2;
-
-					cbCurrentPoint.x += fHorizontalSpacing;
-				}
+			if(bIsSuccessful)
+			{
+				if(i / m_nRows % 2 == 0)
+					cbCurrentPoint.y = fInitialY + ((i % m_nRows) * fVerticalSpacing);
 				else
-					assert(bIsSuccessful && "Failed to initialize a color node for the grid.");
+					cbCurrentPoint.y = fInitialY + (fVerticalSpacing / 2) + ((i % m_nRows) * fVerticalSpacing);
+
+				cbCurrentPoint.x = fInitialX + ((i / m_nRows) * fHorizontalSpacing);
+				
+				m_pNodes[i].setPosition(cbCurrentPoint);
+				m_pNodes[i].setParent(this, 1);
+				m_pNodes[i].setColor(my_utility::random(m_nColors));
+				m_uncaptured_count.tally(m_pNodes[i].getPaletteIndex());
 			}
-			cbCurrentPoint.y += fVerticalSpacing;
 		}
-
-		for( ColorNode** sequence_iter = m_ppNodes; sequence_iter != m_ppNodes + m_nRows; ++sequence_iter )
-		{
-			setRandomSequence(*sequence_iter, m_nColumns);
-            
-            // Tally up the colors
-            for(ColorNode* node_iter=*sequence_iter;node_iter!=(*sequence_iter)+m_nColumns;++node_iter)
-            {
-                m_uncaptured_count.tally(node_iter->getPaletteIndex());
-            }
-		}
-
 		for(int i = 0; i < m_nComboSize; i++)
 		{
 			m_pSelectedNodes[i] = 0;
@@ -119,22 +88,22 @@ namespace three_color
 
 	unsigned int ColorGrid::setRandomSequence(ColorNode* pSequence, unsigned int nSize)
 	{
-        unsigned int nLength = getRandomSequence(m_nColors, nSize, nSize, m_cbRandomSequence);
+		unsigned int nLength = getRandomSequence(m_nColors, nSize, nSize, m_cbRandomSequence);
 		setColorNodes(m_cbRandomSequence, nLength, pSequence);
 		return nLength;
 	}
 
 	float ColorGrid::getHorizontalSpacing() const
-    {
-        unsigned int nDivisions = m_nColumns + 1;
-        return m_cbBounds.size.width / nDivisions;
-    }
+	{
+		unsigned int nDivisions = m_nColumns + 1;
+		return m_cbBounds.size.width / nDivisions;
+	}
     
-    float ColorGrid::getVerticalSpacing() const
-    {
-        unsigned int nDivisions = m_nRows + 1;
-        return m_cbBounds.size.height / nDivisions;
-    }
+	float ColorGrid::getVerticalSpacing() const
+	{
+		unsigned int nDivisions = m_nRows + 1;
+		return m_cbBounds.size.height / nDivisions;
+	}
 
 	void ColorGrid::registerWithTouchDispatcher()
 	{
@@ -144,27 +113,21 @@ namespace three_color
 	bool ColorGrid::ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
 	{
 		cocos2d::CCPoint touchLocation = touch->getLocation();
-		int i = 0;
 		
-		ClearPoints();
+		ClearPoints(0);
 
 		if (m_cbBounds.containsPoint(touchLocation))
 		{
-			for( ColorNode** sequence_iter = m_ppNodes; sequence_iter != m_ppNodes + m_nRows; ++sequence_iter )
+			for(int i = 0; i < m_nNodes; i++)
 			{
-				for( ColorNode* node_iter = *sequence_iter; node_iter != *sequence_iter + m_nColumns; ++node_iter )
+				if(m_pNodes[i].isOnSprite(touchLocation))
 				{
-					if(node_iter->isOnSprite(touchLocation))
-					{
-						node_iter->select();
-						m_pSelectedNodes[m_nSelectedNodesSize] = node_iter;
-						m_cbSequenceColors[m_nSelectedNodesSize] = node_iter->getPaletteIndex();
-						m_pSelectedNodeNumbers[m_nSelectedNodesSize] = i;
-						m_nSelectedNodesSize++;
-						return true;
-					}
-
-					i++;
+					m_pNodes[i].select();
+					m_pSelectedNodes[m_nSelectedNodesSize] = &m_pNodes[i];
+					m_cbSequenceColors[m_nSelectedNodesSize] = m_pNodes[i].getPaletteIndex();
+					m_pSelectedNodeNumbers[m_nSelectedNodesSize] = i;
+					m_nSelectedNodesSize = 1;
+					return true;
 				}
 			}
 		}
@@ -190,9 +153,9 @@ namespace three_color
 		return m_cbSequenceColors;
 	}
 
-	void ColorGrid::ClearPoints()
+	void ColorGrid::ClearPoints(unsigned int nStart)
 	{
-		for(int i = 0; i < m_nSelectedNodesSize; i++)
+		for(int i = nStart; i < m_nComboSize; i++)
 		{
 			if(m_pSelectedNodes[i] != 0)
 				m_pSelectedNodes[i]->deselect();
@@ -200,7 +163,8 @@ namespace three_color
 			m_pSelectedNodes[i] = 0;
 		}
 
-		m_nSelectedNodesSize = 0;
+		if(nStart <= m_nComboSize)
+			m_nSelectedNodesSize = nStart;
 	}
 
 	unsigned int ColorGrid::GetComboSize()
@@ -211,50 +175,6 @@ namespace three_color
 	unsigned int ColorGrid::GetNumberPoints()
 	{
 		return m_nSelectedNodesSize;
-	}
-
-	void ColorGrid::CheckNodes(cocos2d::CCPoint cbTouchedRegion)
-	{
-		int i = 0;
-		double nHorizontalEpsilon;
-		double nVerticalEpsilon;
-
-		for( ColorNode** sequence_iter = m_ppNodes; sequence_iter != m_ppNodes + m_nRows; ++sequence_iter )
-		{
-			for( ColorNode* node_iter = *sequence_iter; node_iter != *sequence_iter + m_nColumns; ++node_iter )
-			{
-				if(node_iter->isOnSprite(cbTouchedRegion) && !node_iter->isOnSprite(m_cbLastPoint))
-				{
-					if(m_nSelectedNodesSize == 0)
-					{
-						m_cbLastPoint = cbTouchedRegion;
-						nLastTouchedNode = i;
-					}
-					else if(nLastTouchedNode == i)
-						return;
-
-					if(m_nSelectedNodesSize <= m_nComboSize 
-					&& (((m_cbLastPoint.x == cbTouchedRegion.x && m_cbLastPoint.y + (fVerticalSpacing * 2) >= cbTouchedRegion.y)
-					 || (m_cbLastPoint.x == cbTouchedRegion.x && m_cbLastPoint.y - (fVerticalSpacing * 2) >= cbTouchedRegion.y))
-					 || ((m_cbLastPoint.x + fHorizontalSpacing >= cbTouchedRegion.x && m_cbLastPoint.y + fVerticalSpacing >= cbTouchedRegion.y)
-					 || (m_cbLastPoint.x - fHorizontalSpacing >= cbTouchedRegion.x && m_cbLastPoint.y + fVerticalSpacing >= cbTouchedRegion.y)
-					 || (m_cbLastPoint.x - fHorizontalSpacing >= cbTouchedRegion.x && m_cbLastPoint.y - fVerticalSpacing >= cbTouchedRegion.y)
-					 || (m_cbLastPoint.x + fHorizontalSpacing >= cbTouchedRegion.x && m_cbLastPoint.y - fVerticalSpacing >= cbTouchedRegion.y))))
-					{
-						m_cbLastPoint = cbTouchedRegion;
-						node_iter->select();
-						m_pSelectedNodes[m_nSelectedNodesSize] = node_iter;
-						m_cbSequenceColors[m_nSelectedNodesSize] = node_iter->getPaletteIndex();
-						m_nSelectedNodesSize++;
-						nLastTouchedNode = i;
-					}
-
-					return;
-				}
-
-				i++;
-			}
-		}
 	}
 
 	void ColorGrid::HandleNodes(bool bStatus)
@@ -274,20 +194,18 @@ namespace three_color
 				
 				m_pSelectedNodes[i]->setColor(cbRandomColor);
 				m_pSelectedNodes[i]->uncapture();
-                
-                // Add the node's new color back to the tally
-                m_uncaptured_count.tally(m_pSelectedNodes[i]->getPaletteIndex());
+				// Add the node's new color back to the tally
+				m_uncaptured_count.tally(m_pSelectedNodes[i]->getPaletteIndex());
 			}
 			else if(bStatus)
-            {
+			{
 				m_pSelectedNodes[i]->capture();
-                
-                // Remove the node from the count
-                m_uncaptured_count.tally(m_pSelectedNodes[i]->getPaletteIndex(),-1);
-            }
+				// Remove the node from the count
+				m_uncaptured_count.tally(m_pSelectedNodes[i]->getPaletteIndex(),-1);
+			}
 		}
 
-		ClearPoints();
+		ClearPoints(0);
 	}
 
 	void ColorGrid::ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
@@ -295,7 +213,7 @@ namespace three_color
 		cocos2d::CCPoint touchLocation = touch->getLocation();
 
 		if(!IsFull())
-			ClearPoints();
+			ClearPoints(0);
 	}
 
 	void ColorGrid::ccTouchCancelled(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
@@ -305,27 +223,21 @@ namespace three_color
 	void ColorGrid::ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
 	{
 		cocos2d::CCPoint touchLocation = touch->getLocation();
-		int i = 0;
-		
+
 		if (m_cbBounds.containsPoint(touchLocation))
 		{
-			for( ColorNode** sequence_iter = m_ppNodes; sequence_iter != m_ppNodes + m_nRows; ++sequence_iter )
+			for(int i = 0; i < m_nNodes; i++)
 			{
-				for( ColorNode* node_iter = *sequence_iter; node_iter != *sequence_iter + m_nColumns; ++node_iter )
+				if(m_pNodes[i].isOnSprite(touchLocation)
+					&& CheckList(i)
+					&& CheckAdjacency(i)
+					&& m_nSelectedNodesSize < m_nComboSize)
 				{
-					if(node_iter->isOnSprite(touchLocation)
-					   && CheckList(i)
-					   && CheckAdjacency(i)
-					   && m_nSelectedNodesSize < m_nComboSize)
-					{
-						node_iter->select();
-						m_pSelectedNodes[m_nSelectedNodesSize] = node_iter;
-						m_cbSequenceColors[m_nSelectedNodesSize] = node_iter->getPaletteIndex();
-						m_pSelectedNodeNumbers[m_nSelectedNodesSize] = i;
-						m_nSelectedNodesSize++;
-					}
-
-					i++;
+					m_pNodes[i].select();
+					m_pSelectedNodes[m_nSelectedNodesSize] = &m_pNodes[i];
+					m_cbSequenceColors[m_nSelectedNodesSize] = m_pNodes[i].getPaletteIndex();
+					m_pSelectedNodeNumbers[m_nSelectedNodesSize] = i;
+					m_nSelectedNodesSize++;
 				}
 			}
 		}
@@ -333,127 +245,39 @@ namespace three_color
 
 	bool ColorGrid::CheckAdjacency(unsigned int nIndex)
 	{
-		if(m_nRows % 2 == 0)  //Even number of rows
+		if((m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] / m_nRows) % 2 == 0)
 		{
-			if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % 2 == 1)  //Even Column, Odd last number
-			{
-				//Left Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - 1 == nIndex)
-					return true;
+			if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - m_nRows - 1 && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0)	//LL
+				return true;
 
-				//Right Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1 == nIndex && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1]  + 1) % m_nRows != 0)
-					return true;
+			if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - m_nRows)	//LU
+				return true;
 
-				//Left Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows - 1 == nIndex)
-					return true;
+			if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows - 1 && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0 && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] != 0)	//RL
+				return true;
 
-				//Right Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows + 1 == nIndex && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1]  + 1) % m_nRows != 0)
-					return true;
-			}
-			else //Even column, even last number
-			{
-				//Left Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - m_nRows - 1 == nIndex  && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0)
-					return true;
-
-				//Right Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - m_nRows + 1 == nIndex)
-					return true;
-
-				//Left Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - 1 == nIndex  && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0)
-					return true;
-
-				//Right Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1 == nIndex)
-					return true;
-			}
+			if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows)	//RU
+				return true;
 		}
-		else //Odd number of rows
+		else
 		{
-			if((m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] / m_nRows) % 2 == 0 && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % 2 == 0)  //Even column, even last number
-			{
-				//Left Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - 1 == nIndex && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0)
-					return true;
+			if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - m_nRows + 1  && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1) % m_nRows != 0)	//LU
+				return true;
 
-				//Right Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1 == nIndex && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1) % m_nRows != 0)
-					return true;
+			if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - m_nRows)	//LL
+				return true;
 
-				//Left Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows - 1 == nIndex && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0)
-					return true;
+			if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows)	//RL
+				return true;
 
-				//Right Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows + 1 == nIndex && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1) % m_nRows != 0)
-					return true;
-			}
-			else if((m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] / m_nRows) % 2 == 1 && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % 2 == 0) //Odd column, even last number
-			{
-				//Left Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - m_nRows - 1 == nIndex)
-					return true;
-
-				//Right Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] -m_nRows + 1 == nIndex)
-					return true;
-
-				//Left Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - 1 == nIndex)
-					return true;
-
-				//Right Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1 == nIndex)
-					return true;
-			}
-			else if((m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] / m_nRows) % 2 == 1 && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % 2 == 1) //Odd column, odd last number
-			{
-				//Left Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - 1 == nIndex && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0)
-					return true;
-
-				//Right Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1 == nIndex && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1) % m_nRows != 0)
-					return true;
-
-				//Left Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows - 1 == nIndex && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0)
-					return true;
-
-				//Right Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows + 1 == nIndex && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1) % m_nRows != 0)
-					return true;
-			}
-			else if((m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] / m_nRows) % 2 == 0  && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % 2 == 1) //Even column, odd last number
-			{
-				//Left Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows - 1 == nIndex)
-					return true;
-
-				//Right Upper
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows + 1 == nIndex)
-					return true;
-
-				//Left Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - 1 == nIndex)
-					return true;
-
-				//Right Lower
-				if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1 == nIndex)
-					return true;
-			}
+			if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows + 1 && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1) % m_nRows != 0)	//RU
+				return true;
 		}
 
-		//Upper
-		if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - m_nRows == nIndex)
+		if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] - 1 && m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] % m_nRows != 0)  //L
 			return true;
 
-		//Lower
-		if(m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + m_nRows == nIndex)
+		if(nIndex == m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1 && (m_pSelectedNodeNumbers[m_nSelectedNodesSize-1] + 1) % m_nRows != 0) //U
 			return true;
 
 		return false;
@@ -461,27 +285,18 @@ namespace three_color
 
 	bool ColorGrid::CheckList(unsigned int nIndex)
 	{
-		int nNewIndex = 1;
-		bool bIsNotListed = true;
-
-		for(unsigned int* sequence_iter = m_pSelectedNodeNumbers; sequence_iter != m_pSelectedNodeNumbers + m_nSelectedNodesSize; ++sequence_iter )
+		for(int i = 0; i < m_nSelectedNodesSize; i++)
 		{
-			if(*sequence_iter == nIndex)
+			if(nIndex == m_pSelectedNodeNumbers[i] && m_pSelectedNodes[i] != 0)
 			{
-				m_nSelectedNodesSize = nNewIndex;
-				bIsNotListed = false;
-				break;
+				m_nSelectedNodesSize = i + 1;
+				ClearPoints(m_nSelectedNodesSize);
+				return false;
 			}
-			nNewIndex++;
 		}
 
-		for(int i = m_nSelectedNodesSize; i < m_nComboSize; i++)
-		{
-			if(m_pSelectedNodes[i] != 0)
-				m_pSelectedNodes[i]->deselect();
-		}
-
-		return bIsNotListed;
+		return true;
 	}
 } //end namespace three_colors
+	
 	

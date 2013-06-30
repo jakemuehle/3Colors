@@ -32,6 +32,7 @@ namespace three_color
         m_sequences( NULL ),
         m_sequences_length( NULL ),
         m_random_sequence( NULL ),
+		m_unused_count( NULL ),
         m_number_of_sequences( number_of_sequences ),
         m_number_of_colors( number_of_colors ),
         m_min_sequence_length( min_sequence_length ),

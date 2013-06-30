@@ -36,22 +36,20 @@ namespace three_color
 		bool IsFull();
 		ColorNode** GetPoints();
 		PaletteIndex* GetSequenceColors();
-		void ClearPoints();
+		void ClearPoints(unsigned int nStart);
 		unsigned int GetComboSize();
 		unsigned int GetNumberPoints();
 		void HandleNodes(bool bStatus);
 
 		bool init();
         
-        inline const ColorCount * getUncapturedColorCount() const
-        {
-            return &m_uncaptured_count;
-        }
+        inline const ColorCount * getUncapturedColorCount() const {return &m_uncaptured_count;}
 
 	private:
 		cocos2d::CCRect m_cbBounds;
-		ColorNode** m_ppNodes;
+		ColorNode* m_pNodes;
 		PaletteIndex * m_cbRandomSequence;
+		unsigned int m_nNodes;
 		unsigned int m_nRows;
 		unsigned int m_nColumns;
 		unsigned int m_nColors;
@@ -64,6 +62,7 @@ namespace three_color
 		float fHorizontalSpacing;
 		float fVerticalSpacing;
 		float fInitialX;
+		float fInitialY;
 		cocos2d::CCPoint m_cbLastPoint;
 		unsigned int nLastTouchedNode;
         
