@@ -17,13 +17,11 @@ namespace three_color
 					unsigned int nRows,
 					unsigned int nColumns,
 					unsigned int nColors,
-					unsigned int nComboSize);
-		//CGrid(const CGrid& cbRHS);
+					unsigned int nComboSize,
+					double nInitCapturedPercent);
 		~ColorGrid(void);
 
-		// Calculates the horizontal spacing between nodes.
         float getHorizontalSpacing() const;
-        // Calculates the vertical spacing between nodes.
         float getVerticalSpacing() const;
 
 		void registerWithTouchDispatcher();
@@ -40,10 +38,13 @@ namespace three_color
 		unsigned int GetComboSize();
 		unsigned int GetNumberPoints();
 		void HandleNodes(bool bStatus);
+		void RandomCapture(double nPercent);
 
 		bool init();
+		bool Reset();
         
-        inline const ColorCount * getUncapturedColorCount() const {return &m_uncaptured_count;}
+        inline const ColorCount * getUncapturedColorCount() const { return &m_uncaptured_count; }
+		inline const bool CheckWin() const { return (m_nCapturedNodes >= m_nNodes) ? true : false; }
 
 	private:
 		cocos2d::CCRect m_cbBounds;
@@ -65,6 +66,8 @@ namespace three_color
 		float fInitialY;
 		cocos2d::CCPoint m_cbLastPoint;
 		unsigned int nLastTouchedNode;
+		double m_nInitCapturePercent;
+		unsigned int m_nCapturedNodes;
         
         ColorCount m_uncaptured_count;
 

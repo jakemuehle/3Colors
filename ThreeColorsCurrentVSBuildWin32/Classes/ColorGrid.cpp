@@ -13,8 +13,9 @@ namespace three_color
 						 unsigned int nRows,
 						 unsigned int nColumns,
 	 					 unsigned int nColors,
-						 unsigned int nComboSize) :
-        m_uncaptured_count(nColors)
+						 unsigned int nComboSize,
+						 double nInitCapturePercent) :
+						 m_uncaptured_count(nColors)
 	{
 		m_cbBounds = cbBounds;
 		m_nRows = nRows;
@@ -26,6 +27,8 @@ namespace three_color
 		m_nSelectedNodesSize = 0;
 		m_pSelectedNodeNumbers = new unsigned int[nComboSize];
 		m_cbSequenceColors = new PaletteIndex[nComboSize];
+		m_nInitCapturePercent = nInitCapturePercent;
+		m_nCapturedNodes = 0;
 		this->registerWithTouchDispatcher();
 	}
 
@@ -73,6 +76,9 @@ namespace three_color
 				m_uncaptured_count.tally(m_pNodes[i].getPaletteIndex());
 			}
 		}
+
+		RandomCapture(m_nInitCapturePercent);
+
 		for(int i = 0; i < m_nComboSize; i++)
 		{
 			m_pSelectedNodes[i] = 0;
@@ -84,6 +90,43 @@ namespace three_color
 		}
         
 		return true;
+	}
+
+	bool ColorGrid::Reset()
+	{
+		if(!m_pNodes)
+			return init();
+
+		ClearPoints(0);
+		m_uncaptured_count.resetAll();
+
+		for(int i = 0; i < m_nNodes; ++i)
+		{
+			m_pNodes[i].uncapture();
+			m_pNodes[i].setColor(my_utility::random(m_nColors));
+			m_uncaptured_count.tally(m_pNodes[i].getPaletteIndex());
+		}
+
+		m_nCapturedNodes = 0;
+
+		RandomCapture(m_nInitCapturePercent);
+		
+		return true;
+	}
+
+	void ColorGrid::RandomCapture(double nPercent)
+	{
+		int nIterations = m_nNodes * nPercent;
+
+		for(; m_nCapturedNodes < nIterations;)
+		{
+			if(m_pNodes[my_utility::random(m_nNodes)].isCaptured())
+				continue;
+			else
+				m_pNodes[my_utility::random(m_nNodes)].capture();
+
+			m_nCapturedNodes++;
+		}
 	}
 
 	unsigned int ColorGrid::setRandomSequence(ColorNode* pSequence, unsigned int nSize)
@@ -194,12 +237,14 @@ namespace three_color
 				
 				m_pSelectedNodes[i]->setColor(cbRandomColor);
 				m_pSelectedNodes[i]->uncapture();
+				m_nCapturedNodes--;
 				// Add the node's new color back to the tally
 				m_uncaptured_count.tally(m_pSelectedNodes[i]->getPaletteIndex());
 			}
 			else if(bStatus)
 			{
 				m_pSelectedNodes[i]->capture();
+				m_nCapturedNodes++;
 				// Remove the node from the count
 				m_uncaptured_count.tally(m_pSelectedNodes[i]->getPaletteIndex(),-1);
 			}

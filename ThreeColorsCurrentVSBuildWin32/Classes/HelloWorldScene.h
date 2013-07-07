@@ -2,6 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "time.h"
 
 namespace three_color
 {
@@ -22,6 +23,7 @@ public:
     
     // a selector callback
     void menuCloseCallback(CCObject* pSender);
+	void resetCallback(CCObject* pSender);
 
     // preprocessor macro for "static create()" constructor ( node() deprecated )
     CREATE_FUNC(HelloWorld);

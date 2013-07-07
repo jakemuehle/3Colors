@@ -43,9 +43,15 @@ namespace three_color
         {
             return m_quantity_by_color[color];
         }
+
+		inline void resetColor(PaletteIndex color) const
+		{
+			m_quantity_by_color[color] = 0;
+		}
         
         int getTotal() const;
-        
+        void resetAll();
+
         // Gets a random color from the colors stored, but guarantees the minimal_percent for each color.
         PaletteIndex getRandomColor(float minimal_percent) const;
     

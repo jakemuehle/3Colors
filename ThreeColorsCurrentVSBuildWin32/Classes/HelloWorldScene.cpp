@@ -48,7 +48,7 @@ bool HelloWorld::init()
                                         "CloseNormal.png",
                                         "CloseSelected.png",
                                         this,
-                                        menu_selector(HelloWorld::menuCloseCallback) );
+                                        menu_selector(HelloWorld::resetCallback) );
     pCloseItem->setPosition( ccp(CCDirector::sharedDirector()->getWinSize().width - 20, 20) );
 
     // create menu, it's an autorelease object
@@ -82,17 +82,18 @@ bool HelloWorld::init()
     //this->addChild(pSprite, 0);
 
 	m_nColors = 3;
-	m_nRows = 6;
-	m_nColumns = 6;
+	m_nRows = 4;
+	m_nColumns = 4;
 	m_nComboSize = 3;
 	m_nSequences = 4;
+	double nInitCapturedPercent = 0.5;
 
 	bank = new three_color::ColorBank(cocos2d::CCRect(0, size.height - 400, 200, 200),m_nSequences,m_nColors,m_nComboSize,m_nComboSize);
     bank->init();
 	bank->setPosition(0,0);
     this->addChild( bank, 1 );
 
-	m_pColorGrid = new three_color::ColorGrid(cocos2d::CCRect(200,0,size.width - 175, size.height), m_nRows, m_nColumns, m_nColors, m_nComboSize);
+	m_pColorGrid = new three_color::ColorGrid(cocos2d::CCRect(200,0,size.width - 175, size.height), m_nRows, m_nColumns, m_nColors, m_nComboSize, nInitCapturedPercent);
 	m_pColorGrid->init();
 	m_pColorGrid->setPosition(0,0);
 	this->addChild(m_pColorGrid, 1);
@@ -117,6 +118,11 @@ void HelloWorld::ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
 	if(m_pColorGrid->IsFull())
 	{
 		m_pColorGrid->HandleNodes(bank->makeSelection(m_pColorGrid->GetSequenceColors(), m_pColorGrid->GetNumberPoints()));
+	}
+
+	if(m_pColorGrid->CheckWin())
+	{
+		m_pColorGrid->Reset();
 	}
 
 	bank->deselectAll();
@@ -145,4 +151,9 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+void HelloWorld::resetCallback(CCObject* pSender)
+{
+	m_pColorGrid->Reset();
 }

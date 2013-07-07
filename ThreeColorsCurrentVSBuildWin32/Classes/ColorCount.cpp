@@ -94,4 +94,10 @@ namespace three_color
         
         return random_color;
     }
+
+	void ColorCount::resetAll()
+	{
+		for(int i = 0; i < m_number_of_colors; ++i)
+			resetColor(i);
+	}
 }
